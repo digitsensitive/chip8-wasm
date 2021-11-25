@@ -1,1 +1,1 @@
-# chip8-wasm
+# CHIP-8 WASM
