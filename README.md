@@ -1,1 +1,1 @@
-# CHIP-8 WASM
+# CHIP-8 emulator with AssemblyScript and WebAssembly

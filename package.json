@@ -1,0 +1,25 @@
+{
+  "name": "chip8-wasm",
+  "version": "0.0.1",
+  "description": "CHIP-8 emulator with AssemblyScript and WebAssembly",
+  "repository": "https://github.com/digitsensitive/chip8-wasm.git",
+  "author": "digitsensitive <digit.sensitivee@gmail.com>",
+  "license": "MIT",
+  "private": true,
+  "scripts": {
+    "asbuild:untouched": "asc assembly/index.ts --target debug",
+    "asbuild:optimized": "asc assembly/index.ts --target release",
+    "asbuild": "npm run asbuild:untouched && npm run asbuild:optimized",
+    "test": "node tests",
+    "watch:asbuild": "nodemon --watch assembly -e ts -x \"npm run asbuild\"",
+    "http": "http-server -o"
+  },
+  "dependencies": {
+    "@assemblyscript/loader": "0.19.20"
+  },
+  "devDependencies": {
+    "assemblyscript": "0.19.20",
+    "nodemon": "2.0.15",
+    "http-server": "14.0.0"
+  }
+}
