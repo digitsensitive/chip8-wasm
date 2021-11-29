@@ -14,6 +14,5 @@ Have fun reading through and coding!
 
 ## To do list
 
-- [x] Create Basic Setup with AssemblyScript
-- [x] Create README and PROJECT markdown files
-- [o] Medium: Create history section
+- [x] Setup basic repository, including configuration with AssemblyScript
+- [x] Medium: Create history section
