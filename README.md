@@ -16,4 +16,4 @@ Have fun reading through and coding!
 
 - [x] Create Basic Setup with AssemblyScript
 - [x] Create README and PROJECT markdown files
-- [] Medium: Create history section
+- [o] Medium: Create history section
