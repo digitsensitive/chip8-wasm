@@ -2,4 +2,5 @@
 
 ## List
 
-- [x] Session 1: Start Here
+- [x] Create Basic Setup with AssemblyScript
+- [x] Create README and PROJECT markdown files
