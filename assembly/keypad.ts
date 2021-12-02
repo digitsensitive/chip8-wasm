@@ -1,3 +1,4 @@
+/*
 const KEYCODES_MAPPED_TO_HEXADECIMAL = {
   49: 0x1, // 1
   50: 0x2, // 2
@@ -17,7 +18,7 @@ const KEYCODES_MAPPED_TO_HEXADECIMAL = {
   67: 0xb, // C
   86: 0xf, // V
 };
-
+*/
 export class Keypad {
   private keys: StaticArray<boolean> = new StaticArray<boolean>(16);
 
