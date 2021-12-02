@@ -1,7 +1,9 @@
+import { Display } from "./display";
 import { Keypad } from "./keypad";
 
 export class Chip8 {
   private delayTimer: u8;
+  private display: Display;
   private generalPurposeVariableRegisters: StaticArray<u8> =
     new StaticArray<u8>(16);
   private indexRegister: u16;
@@ -18,6 +20,9 @@ export class Chip8 {
   private init(): void {
     // Reset delay timer
     this.delayTimer = 0;
+
+    // Init Display
+    this.display = new Display();
 
     // Init general purpose variable registers V0 - VF
     const gpvrLength = this.generalPurposeVariableRegisters.length;
