@@ -12,7 +12,9 @@ Have fun reading through and coding!
 
 - [x] Setup basic repository, including configuration with AssemblyScript
 - [x] Medium: Create history section
-- [x] Setup memory
-- [x] Setup registers
-- [x] Setup stack
+- [x] Add memory
+- [x] Add registers
+- [x] Add stack
 - [x] Medium: Add references section
+- [x] Add delay and sound registers
+- [x] Add program counter (PC)
