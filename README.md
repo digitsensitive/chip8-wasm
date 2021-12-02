@@ -18,3 +18,4 @@ Have fun reading through and coding!
 - [x] Medium: Add references section
 - [x] Add delay and sound registers
 - [x] Add program counter (PC)
+- [x] Add input (keypad)

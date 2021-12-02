@@ -1,8 +1,11 @@
+import { Keypad } from "./keypad";
+
 export class Chip8 {
   private delayTimer: u8;
   private generalPurposeVariableRegisters: StaticArray<u8> =
     new StaticArray<u8>(16);
   private indexRegister: u16;
+  private keypad: Keypad;
   private memory: StaticArray<u8> = new StaticArray<u8>(4096);
   private programCounter: u16;
   private soundTimer: u8;
@@ -24,6 +27,9 @@ export class Chip8 {
 
     // Reset index (address) register I to zero
     this.indexRegister = 0;
+
+    // Init Keypad
+    this.keypad = new Keypad();
 
     // Init Memory
     const memoryLength = this.memory.length;
