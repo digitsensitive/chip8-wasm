@@ -21,4 +21,5 @@ Have fun reading through and coding!
 - [x] Add input (keypad)
 - [x] Add display
 - [x] Add fontset
+- [x] Add roms
 - [] Add Prettier to package.json with prettier configurationa file
