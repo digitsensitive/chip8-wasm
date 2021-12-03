@@ -22,4 +22,5 @@ Have fun reading through and coding!
 - [x] Add display
 - [x] Add fontset
 - [x] Add roms
+- [x] Medium: Write instructions section
 - [] Add Prettier to package.json with prettier configurationa file
