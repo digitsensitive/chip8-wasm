@@ -12,15 +12,18 @@ Have fun reading through and coding!
 
 - [x] Setup basic repository, including configuration with AssemblyScript
 - [x] Medium: Create history section
-- [x] Add memory
-- [x] Add registers
-- [x] Add stack
+- [x] CHIP-8: Add memory
+- [x] CHIP-8: Add registers
+- [x] CHIP-8: Add stack
 - [x] Medium: Add references section
-- [x] Add delay and sound registers
-- [x] Add program counter (PC)
-- [x] Add input (keypad)
-- [x] Add display
-- [x] Add fontset
+- [x] CHIP-8: Add delay and sound registers
+- [x] CHIP-8: Add program counter (PC)
+- [x] CHIP-8: Add input (keypad)
+- [x] CHIP-8: Add display
+- [x] CHIP-8: Add fontset
 - [x] Add roms
 - [x] Medium: Write instructions section
+- [] Write disassembler
+- [] CHIP-8: Add code to load program into memory
+- [] CHIP-8: Add code to emulate each cycle
 - [] Add Prettier to package.json with prettier configurationa file
