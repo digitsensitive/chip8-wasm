@@ -1,4 +1,5 @@
 import { Display } from "./display";
+import { FONTSET } from "./font";
 import { Keypad } from "./keypad";
 
 export class Chip8 {
@@ -15,6 +16,7 @@ export class Chip8 {
 
   constructor() {
     this.init();
+    this.loadFontIntoMemory();
   }
 
   private init(): void {
@@ -25,8 +27,8 @@ export class Chip8 {
     this.display = new Display();
 
     // Init general purpose variable registers V0 - VF
-    const gpvrLength = this.generalPurposeVariableRegisters.length;
-    for (let i = 0; i < gpvrLength; i++) {
+    const GPVR_LENGTH = this.generalPurposeVariableRegisters.length;
+    for (let i = 0; i < GPVR_LENGTH; i++) {
       this.generalPurposeVariableRegisters[i] = 0;
     }
 
@@ -37,8 +39,8 @@ export class Chip8 {
     this.keypad = new Keypad();
 
     // Init Memory
-    const memoryLength = this.memory.length;
-    for (let i = 0; i < memoryLength; i++) {
+    const MEMORY_LENGTH = this.memory.length;
+    for (let i = 0; i < MEMORY_LENGTH; i++) {
       this.memory[i] = 0;
     }
 
@@ -49,9 +51,16 @@ export class Chip8 {
     this.soundTimer = 0;
 
     // Init stack array
-    const stackLength = this.stack.length;
-    for (let i = 0; i < stackLength; i++) {
+    const STACK_LENGTH = this.stack.length;
+    for (let i = 0; i < STACK_LENGTH; i++) {
       this.stack[i] = 0;
+    }
+  }
+
+  private loadFontIntoMemory(): void {
+    const FONTSET_LENGTH = FONTSET.length;
+    for (let i = 0; i < FONTSET_LENGTH; i++) {
+      this.memory[i] = FONTSET[i];
     }
   }
 }

@@ -20,8 +20,6 @@ const runWasmAdd = async () => {
 
   // Get our exports object, with all of our exported Wasm Properties
   const exports = wasmModule.instance.exports;
-
-  console.log(exports.add(24, 24));
 };
 
 /*function mainloop(chip8) {

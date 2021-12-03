@@ -20,3 +20,5 @@ Have fun reading through and coding!
 - [x] Add program counter (PC)
 - [x] Add input (keypad)
 - [x] Add display
+- [x] Add fontset
+- [] Add Prettier to package.json with prettier configurationa file
