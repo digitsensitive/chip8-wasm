@@ -5,6 +5,7 @@ export class Display {
   private pixels: StaticArray<boolean> = new StaticArray<boolean>(
     WIDTH * HEIGHT
   );
+
   constructor() {
     this.clearScreen();
   }

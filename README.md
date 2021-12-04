@@ -23,7 +23,9 @@ Have fun reading through and coding!
 - [x] CHIP-8: Add fontset
 - [x] Add roms
 - [x] Medium: Write instructions section
-- [] Write disassembler
 - [] CHIP-8: Add code to load program into memory
 - [] CHIP-8: Add code to emulate each cycle
 - [] Add Prettier to package.json with prettier configurationa file
+- [] Write disassembler (https://aimechanics.tech/2020/09/03/chip8-emulation-rom-disassembler)
+
+- Read the following ressource: http://vanbeveren.byethost13.com/stuff/CHIP8.pdf?i=1
