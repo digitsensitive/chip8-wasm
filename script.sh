@@ -1,3 +1,3 @@
 cd build  
-emcmake cmake ..  
+emcmake cmake ..
 make

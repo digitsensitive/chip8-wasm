@@ -15,6 +15,7 @@ Have fun reading through and coding!
 - Install the [Clang-Format extension for VS Code](https://marketplace.visualstudio.com/items?itemName=xaver.clang-format)
 - Install [Clang](https://clang.llvm.org) and ensure it is installed `clang --version`
 - Get the [Emscripten SDK](https://emscripten.org/docs/getting_started/downloads.html)
+- In the root directory set the CMAKE Toolchain file by running: `CMAKE_TOOLCHAIN_FILE=/**/Emscripten.cmake` Ensure you update your path with the location of your emsdk installation location
 
 # Code formatter
 Use of [ClangFormat](https://clang.llvm.org/docs/ClangFormat.html). The style options are defined in the `.clang-format` file. For more details have a look at the official [Style Options](https://clang.llvm.org/docs/ClangFormatStyleOptions.html).

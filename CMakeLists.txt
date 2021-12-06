@@ -16,7 +16,6 @@ project(chip8-wasm VERSION ${VERSION_MAJOR}.${VERSION_MINOR}.${VERSION_REVISION}
 # SDL2
 ################################
 set(CMAKE_MODULE_PATH ${CMAKE_SOURCE_DIR}/cmake)
-
 find_package(SDL2 REQUIRED)
 
 ################################
@@ -41,5 +40,5 @@ target_link_libraries(
 
 
 set(CMAKE_EXECUTABLE_SUFFIX ".js")
-set_target_properties(${PROJECT_NAME} PROPERTIES LINK_FLAGS "-s WASM=1 -s -s EXPORTED_FUNCTIONS='['_main', '_load_game']' -s EXTRA_EXPORTED_RUNTIME_METHODS='[ccall, cwrap]'")
+set_target_properties(${PROJECT_NAME} PROPERTIES LINK_FLAGS "-s WASM=1 -s EXPORTED_FUNCTIONS='['_main', '_load_game']' -s EXTRA_EXPORTED_RUNTIME_METHODS='[ccall, cwrap]'")
 
