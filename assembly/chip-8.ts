@@ -15,6 +15,11 @@ export class Chip8 {
   private stack: StaticArray<u16> = new StaticArray<u16>(16);
 
   constructor() {
+    // Init Display
+    this.display = new Display();
+    // Init Keypad
+    this.keypad = new Keypad();
+
     this.init();
     this.loadFontIntoMemory();
   }
@@ -22,9 +27,6 @@ export class Chip8 {
   private init(): void {
     // Reset delay timer
     this.delayTimer = 0;
-
-    // Init Display
-    this.display = new Display();
 
     // Init general purpose variable registers V0 - VF
     const GPVR_LENGTH = this.generalPurposeVariableRegisters.length;
@@ -34,9 +36,6 @@ export class Chip8 {
 
     // Reset index (address) register I to zero
     this.indexRegister = 0;
-
-    // Init Keypad
-    this.keypad = new Keypad();
 
     // Init Memory
     const MEMORY_LENGTH = this.memory.length;

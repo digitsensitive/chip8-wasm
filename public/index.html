@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  </head>
+  <body>
+        <div id="shell">
+          <canvas id="canvas" oncontextmenu="event.preventDefault()"></canvas>
+        </div>
+        <div id="selection">
+            <select id="game-selection">
+              <option>SELECT GAME</option>
+              <option value="PONG.ch8">PONG</option>
+              <option value="BRIX.ch8">BRIX</option>
+              <option value="TETRIS.ch8">TETRIS</option>
+              <option value="INVADERS.ch8">INVADERS</option>
+            </select>
+      </div>
+    </div>
+    <script type="text/javascript">
+      var Module = {
+        canvas: (function () {
+          return document.getElementById("canvas");
+        })(),
+      };
+
+      document.addEventListener("DOMContentLoaded", function () {
+        document.querySelector("#game-selection").onchange = async (event) => {
+          const filename = event.target.value;
+          const response = await fetch(`./roms/${filename}`);
+          const arrayBuffer = await response.arrayBuffer();
+          const gameData = new Uint8Array(arrayBuffer);
+          const loadGame = Module.cwrap("load_game", "null", ["array"]);
+          loadGame(gameData);
+        };
+      });
+    </script>
+    <script src="./chip8-wasm.js"></script>
+  </body>
+</html>
