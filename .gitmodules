@@ -1,0 +1,6 @@
+[submodule "vendor/sdl2"]
+	path = vendor/sdl2
+	url = git://github.com/SDL-mirror/SDL
+[submodule "vendor/emsdk"]
+	path = vendor/emsdk
+	url = git://github.com/emscripten-core/emsdk
