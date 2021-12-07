@@ -4,6 +4,7 @@
 #include <functional>
 #include <unordered_map>
 
+#include "chip8_types.h"
 #include "display.h"
 #include "input.h"
 #include "rand.h"
@@ -17,23 +18,23 @@ class Chip8 {
   void UpdateTimers();
 
  private:
-  typedef std::unordered_map<uint8_t, std::function<void()> > operations_set;
+  typedef std::unordered_map<u8, std::function<void()> > operations_set;
 
-  std::array<uint8_t, 0x1000> memory;
-  std::array<uint8_t, 0x10> registers;
-  std::array<uint16_t, 0x10> stack;
+  std::array<u8, 4096> memory;
+  std::array<u8, 16> general_purpose_variable_registers;
+  std::array<u16, 16> stack;
 
-  std::unordered_map<uint8_t, operations_set> operations;
+  std::unordered_map<u8, operations_set> operations;
   Display& display;
   Input& input;
   Rand rand;
 
-  uint8_t t_delay;
-  uint8_t t_sound;
-  uint16_t I;
-  uint16_t pc;
-  uint16_t sp;
-  uint16_t opcode;
+  u8 t_delay;
+  u8 t_sound;
+  u16 I;
+  u16 pc;
+  u16 sp;
+  u16 opcode;
 
   void BindOperations();
 

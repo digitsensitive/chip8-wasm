@@ -25,7 +25,7 @@ set(CMAKE_RUNTIME_OUTPUT_DIRECTORY "${CMAKE_SOURCE_DIR}/public")
 add_executable(${PROJECT_NAME}
   src/main.cpp
   src/chip8.cpp
-  src/emulator.cpp
+  src/virtual-machine.cpp
   src/interpreter.cpp
   src/window.cpp)
 
@@ -40,5 +40,5 @@ target_link_libraries(
 
 
 set(CMAKE_EXECUTABLE_SUFFIX ".js")
-set_target_properties(${PROJECT_NAME} PROPERTIES LINK_FLAGS "-s WASM=1 -s EXPORTED_FUNCTIONS='['_main', '_load_game']' -s EXTRA_EXPORTED_RUNTIME_METHODS='[ccall, cwrap]'")
+set_target_properties(${PROJECT_NAME} PROPERTIES LINK_FLAGS "-s WASM=1 -s EXPORTED_FUNCTIONS='['_main', '_load_game']' -s EXPORTED_RUNTIME_METHODS='[ccall, cwrap]'")
 

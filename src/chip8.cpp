@@ -12,7 +12,7 @@
 using std::memcpy;
 using std::memset;
 
-constexpr std::array<uint8_t, 0x50> kSprites{
+const std::array<uint8_t, 0x50> kSprites{
     0xF0, 0x90, 0x90, 0x90, 0xF0,  // 0
     0x20, 0x60, 0x20, 0x20, 0x70,  // 1
     0xF0, 0x10, 0xF0, 0x80, 0xF0,  // 2
@@ -31,17 +31,17 @@ constexpr std::array<uint8_t, 0x50> kSprites{
     0xF0, 0x80, 0xF0, 0x80, 0x80   // F
 };
 
-constexpr int kStartAddress = 0x200;
+const int kStartAddress = 0x200;
 
-constexpr int kOp1 = 0x1;  // Default operations set
-constexpr int kOp0 = 0x0;
-constexpr int kOp8 = 0x8;
-constexpr int kOpE = 0xE;
-constexpr int kOpF = 0xF;
+const int kOp1 = 0x1;  // Default operations set
+const int kOp0 = 0x0;
+const int kOp8 = 0x8;
+const int kOpE = 0xE;
+const int kOpF = 0xF;
 
 Chip8::Chip8()
     : memory({0}),
-      registers({0}),
+      general_purpose_variable_registers({0}),
       stack({0}),
       operations(),
       display(Display::Instance()),
@@ -67,7 +67,7 @@ void Chip8::SaveRom(const void* source) {
 void Chip8::Reset() {
   // Clear out rom data from memory
   memset(memory.data() + kStartAddress, 0, memory.size() - kStartAddress);
-  registers = {0};
+  general_purpose_variable_registers = {0};
   stack = {0};
   I = 0;
   pc = 0x200;

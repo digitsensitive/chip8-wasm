@@ -3,23 +3,23 @@
 
 #include <iostream>
 
-#include "emulator.h"
+#include "virtual-machine.h"
 
-Emulator chip8;
+VirtualMachine virtual_machine;
 
-void do_error(const string& kErrorMessage) {
+void do_error(const std::string& kErrorMessage) {
   std::cerr << "ERROR: " << kErrorMessage << '\n';
 }
 
-void main_loop() { chip8.Run(); }
+void main_loop() { virtual_machine.Run(); }
 
 extern "C" {
 // Wrap in extern C to prevent C++ name mangling
-void load_game(char* data) { chip8.FlashRom(data); }
+void load_game(char* data) { virtual_machine.FlashRom(data); }
 }
 
 int main() {
-  if (chip8.Boot()) {
+  if (virtual_machine.Boot()) {
     emscripten_set_main_loop(main_loop, /* fps */ -1, /* infinite loop */ true);
   } else {
     do_error("Failed to boot emulator");

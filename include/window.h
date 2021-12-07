@@ -1,7 +1,3 @@
-//
-// Created by Shlomi Nissan on 12/16/19.
-//
-
 #pragma once
 
 #include <SDL.h>

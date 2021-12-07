@@ -1,8 +1,4 @@
-//
-// Created by Shlomi Nissan on 12/16/19.
-//
-
-#include "emulator.h"
+#include "virtual-machine.h"
 
 #include <emscripten.h>
 
@@ -12,9 +8,9 @@
 
 const auto kCyclePerSecond = 10;  // Arbitrary, works best for most roms
 
-bool Emulator::Boot() { return window.Initialize(); }
+bool VirtualMachine::Boot() { return window.Initialize(); }
 
-bool Emulator::LoadRom(const string& kFile) {
+bool VirtualMachine::LoadRom(const std::string& kFile) {
   ToggleState(kRomLoading);  // Turn on rom loading state
 
   std::ifstream rom(kFile);
@@ -36,7 +32,7 @@ bool Emulator::LoadRom(const string& kFile) {
   return true;
 }
 
-void Emulator::FlashRom(char* data) {
+void VirtualMachine::FlashRom(char* data) {
   if (CheckState(kRomLoaded)) {
     // Rom is already loaded, reset state
     ToggleState(kRomLoaded);
@@ -47,7 +43,7 @@ void Emulator::FlashRom(char* data) {
   ToggleState(kRomLoaded);
 }
 
-void Emulator::Run() {
+void VirtualMachine::Run() {
   if (CheckState(kRomLoaded) && !CheckState(kRomLoading)) {
     chip8.UpdateTimers();
     window.PollEvents(input);

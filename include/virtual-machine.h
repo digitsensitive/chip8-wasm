@@ -5,18 +5,16 @@
 #include "chip8.h"
 #include "window.h"
 
-using std::string;
+enum VirtualMachineState { kRomLoading = 1 << 0, kRomLoaded = 1 << 1 };
 
-enum EmulatorState { kRomLoading = 1 << 0, kRomLoaded = 1 << 1 };
-
-class Emulator {
+class VirtualMachine {
  public:
   bool Boot();
-  bool LoadRom(const string& kFile);
+  bool LoadRom(const std::string& kFile);
   void FlashRom(char* data);
   void Run();
 
-  Emulator()
+  VirtualMachine()
       : display(Display::Instance()),
         input(Input::Instance()),
         window(display.width() * display.scale(),
