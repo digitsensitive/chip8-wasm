@@ -3,7 +3,7 @@
 #include <cstring>
 #include <iostream>
 
-#include "font.h"
+#include "fontset.h"
 #include "interpreter.h"
 
 using std::memcpy;
