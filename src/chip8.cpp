@@ -6,9 +6,6 @@
 #include "fontset.h"
 #include "interpreter.h"
 
-using std::memcpy;
-using std::memset;
-
 const int START_LOCATION_IN_MEMORY = 0x200;
 
 const int kOp1 = 0x1;  // Default operations set
@@ -37,7 +34,8 @@ Chip8::Chip8()
   this->memory.fill(0);
   this->stack.fill(0);
 
-  // Store sprites data at the beginning of the memory
+  // Load and store fontset (= 80 bytes)
+  // @ memory locations 0x00 (location 0) to 0x4F (location 79)
   memcpy(memory.data(), FONTSET.data(), FONTSET.size());
 
   this->bind_operations();
