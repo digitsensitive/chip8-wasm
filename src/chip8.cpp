@@ -14,11 +14,9 @@ const int kOp8 = 0x8;
 const int kOpE = 0xE;
 const int kOpF = 0xF;
 
-Chip8::Chip8()
-    : operations(),
-      display(Display::Instance()),
-      input(Input::Instance()),
-      rand(0, 255) {
+Chip8::Chip8() : operations(), input(Input::Instance()), rand(0, 255) {
+  this->display = new Display();
+
   this->current_opcode = 0;
   this->delay_timer = 0;
   this->index_register = 0;
@@ -41,7 +39,10 @@ Chip8::Chip8()
   this->bind_operations();
 }
 
-Chip8::~Chip8() {}
+Chip8::~Chip8() {
+  // free up memories
+  delete this->display;
+}
 
 void Chip8::save_rom(const void* source) {
   // 0x200 (512) Start of most Chip-8 programs
@@ -61,7 +62,7 @@ void Chip8::reset() {
   this->delay_timer = 0;
   this->sound_timer = 0;
 
-  display.ClearScreen();
+  display->clear_screen();
 }
 
 void Chip8::cycle() {

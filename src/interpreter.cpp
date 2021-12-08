@@ -9,7 +9,7 @@ uint8_t Interpreter::getY() { return (c8.current_opcode & 0x00F0u) >> 4u; }
 // endregion
 
 // Clear the screen
-void Interpreter::OP_00E0() { c8.display.ClearScreen(); }
+void Interpreter::OP_00E0() { c8.display->clear_screen(); }
 
 // Return from a subroutine
 void Interpreter::OP_00EE() {
@@ -199,11 +199,11 @@ void Interpreter::OP_Dxyn() {
     pixel = c8.memory[c8.index_register + y];
     for (size_t x = 0; x < 8; x++) {
       if (pixel & (0x80u >> x)) {
-        uint32_t loc = x + Vx + (y + Vy) * c8.display.width();
-        if (c8.display[loc]) {
+        uint32_t loc = x + Vx + (y + Vy) * c8.display->get_width();
+        if (c8.get_display()[loc]) {
           c8.general_purpose_variable_registers[0xF] = 1;
         }
-        c8.display[loc] ^= 1;
+        c8.get_display()[loc] ^= 1;
       }
     }
   }

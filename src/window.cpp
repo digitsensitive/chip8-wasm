@@ -45,10 +45,10 @@ void Window::Draw(Display &display) {
   SDL_RenderClear(renderer);
 
   // Loop through the display and draw pixels
-  for (int y = 0; y < display.height(); y++) {
-    for (int x = 0; x < display.width(); x++) {
-      if (display[x + (y * display.width())]) {
-        DrawPixel(x, y, display.scale());
+  for (int y = 0; y < display.get_height(); y++) {
+    for (int x = 0; x < display.get_width(); x++) {
+      if (display[x + (y * display.get_width())]) {
+        DrawPixel(x, y, display.get_scale());
       }
     }
   }

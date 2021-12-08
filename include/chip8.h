@@ -19,6 +19,8 @@ class Chip8 {
   void cycle();
   void update_timers();
 
+  Display& get_display() { return *this->display; }
+
  private:
   typedef std::unordered_map<u8, std::function<void()> > operations_set;
 
@@ -34,7 +36,7 @@ class Chip8 {
   std::array<u16, 16> stack;
 
   std::unordered_map<u8, operations_set> operations;
-  Display& display;
+  Display* display;
   Input& input;
   Rand rand;
 

@@ -3,32 +3,30 @@
 #include <array>
 #include <cstring>
 
+#include "chip8_types.h"
+
 class Display {
  public:
-  const int width() { return kWidth; }
-  const int height() { return kHeight; }
-  const int scale() { return kScale; }
+  Display(){};
+  ~Display(){};
 
-  uint8_t& operator[](int index) {
+  const int get_width() { return this->WIDTH; }
+  const int get_height() { return this->HEIGHT; }
+  const int get_scale() { return this->SCALE; }
+
+  u8& operator[](int index) {
     if (index > display.size()) {
       throw std::out_of_range("display[] : index out of range");
     }
     return display[index];
   }
 
-  void ClearScreen() { std::memset(display.data(), 0, kWidth * kHeight); }
-
-  static Display& Instance() {
-    static Display INSTANCE;
-    return INSTANCE;
-  }
+  void clear_screen() { std::memset(display.data(), 0, WIDTH * HEIGHT); }
 
  private:
-  static const int kWidth = 64;
-  static const int kHeight = 32;
-  static const int kScale = 10;
+  static const int WIDTH = 64;
+  static const int HEIGHT = 32;
+  static const int SCALE = 10;
 
-  std::array<uint8_t, kWidth * kHeight> display;
-
-  Display() : display() {}
+  std::array<u8, WIDTH * HEIGHT> display;
 };
