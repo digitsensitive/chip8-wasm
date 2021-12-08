@@ -3,23 +3,59 @@
 
 #include "display.h"
 
+Renderer::Renderer(WindowProperties const &properties)
+    : window_properties(properties) {
+  this->window = nullptr;
+  this->renderer = nullptr;
+  this->running = false;
+}
+
 Renderer::~Renderer() {
   SDL_DestroyWindow(window);
   SDL_DestroyRenderer(renderer);
   SDL_Quit();
 }
 
-bool Renderer::Initialize() {
+bool Renderer::isCurrentDisplayModeValid() {
+  // Returns 0 on success or a negative error code on failure
+  int currentDisplayModeReturnValue = SDL_GetCurrentDisplayMode(0, &current);
+
+  if (currentDisplayModeReturnValue != 0) {
+    return false;
+  } else {
+    return true;
+  }
+}
+
+bool Renderer::initialize() {
+  // Returns zero on success or a negative error code on failure
   if (SDL_Init(SDL_INIT_VIDEO) < 0) {
+    printf("SDL_Init failed: %s\n", SDL_GetError());
     return false;
   }
 
-  SDL_CreateWindowAndRenderer(width, height, 0, &window, &renderer);
-  if (window == nullptr || renderer == nullptr) return false;
-  SDL_SetWindowTitle(window, "CHIP-8 Emulator");
+  if (!isCurrentDisplayModeValid()) {
+    printf("Validation of current display mode failed: %s\n", SDL_GetError());
+    return false;
+  };
+
+  // Create our window with title, position, size and flags
+  this->window = SDL_CreateWindow(
+      window_properties.title, SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED,
+      window_properties.width, window_properties.height, SDL_WINDOW_BORDERLESS);
+
+  // Check if we have a window
+  if (this->window == nullptr) {
+    return false;
+  }
+
+  // Check if we have a renderer
+  if (this->renderer == nullptr) {
+    this->renderer = SDL_CreateRenderer(this->window, -1, 0);
+  }
 
   running = true;
-  return running;
+  return true;
 }
 
 void Renderer::PollEvents(Input &input) {

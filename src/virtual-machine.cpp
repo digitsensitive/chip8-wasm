@@ -10,10 +10,13 @@ const auto kCyclePerSecond = 10;  // Arbitrary, works best for most roms
 
 VirtualMachine::VirtualMachine() : input(Input::Instance()) {
   this->chip8 = new Chip8();
-  this->renderer = new Renderer(this->chip8->get_display().get_width() *
-                                    this->chip8->get_display().get_scale(),
-                                this->chip8->get_display().get_height() *
-                                    this->chip8->get_display().get_scale());
+
+  Display display = this->chip8->get_display();
+  const int DISPLAY_WIDTH = display.get_width() * display.get_scale();
+  const int DISPLAY_HEIGHT = display.get_height() * display.get_scale();
+
+  this->renderer =
+      new Renderer({"CHIP-8 GREAT!", DISPLAY_WIDTH, DISPLAY_HEIGHT});
 }
 
 VirtualMachine::~VirtualMachine() {
@@ -22,7 +25,7 @@ VirtualMachine::~VirtualMachine() {
   delete this->renderer;
 }
 
-bool VirtualMachine::Boot() { return renderer->Initialize(); }
+bool VirtualMachine::Boot() { return renderer->initialize(); }
 
 bool VirtualMachine::LoadRom(const std::string& kFile) {
   ToggleState(kRomLoading);  // Turn on rom loading state
