@@ -1,15 +1,15 @@
 
-#include "window.h"
+#include "renderer.h"
 
 #include "display.h"
 
-Window::~Window() {
+Renderer::~Renderer() {
   SDL_DestroyWindow(window);
   SDL_DestroyRenderer(renderer);
   SDL_Quit();
 }
 
-bool Window::Initialize() {
+bool Renderer::Initialize() {
   if (SDL_Init(SDL_INIT_VIDEO) < 0) {
     return false;
   }
@@ -22,7 +22,7 @@ bool Window::Initialize() {
   return running;
 }
 
-void Window::PollEvents(Input &input) {
+void Renderer::PollEvents(Input &input) {
   SDL_Event event;
   while (SDL_PollEvent(&event) != 0) {
     if (event.type == SDL_QUIT) {
@@ -39,7 +39,7 @@ void Window::PollEvents(Input &input) {
   }
 }
 
-void Window::Draw(Display &display) {
+void Renderer::draw(Display &display) {
   // Clear the screen
   SDL_SetRenderDrawColor(renderer, 0, 0, 0, 0xff);
   SDL_RenderClear(renderer);
@@ -56,7 +56,7 @@ void Window::Draw(Display &display) {
   SDL_RenderPresent(renderer);
 }
 
-void Window::DrawPixel(int x, int y, int scale) {
+void Renderer::DrawPixel(int x, int y, int scale) {
   SDL_SetRenderDrawColor(renderer, 0xEF, 0xB3, 0xEE, 0xFF);
 
   SDL_Rect rect{x * scale, y * scale, scale, scale};

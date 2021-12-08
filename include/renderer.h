@@ -5,21 +5,21 @@
 #include "display.h"
 #include "input.h"
 
-class Window {
+class Renderer {
  public:
-  Window(int width, int height)
+  Renderer(int width, int height)
       : width(width),
         height(height),
         window(nullptr),
         renderer(nullptr),
         running(false) {}
-  ~Window();
+  ~Renderer();
 
   bool get_running() { return running; }
 
   bool Initialize();
   void PollEvents(Input& input);
-  void Draw(Display& display);
+  void draw(Display& display);
 
  private:
   int width;

@@ -7,26 +7,23 @@
 
 class Display {
  public:
-  Display(){};
-  ~Display(){};
-
   const int get_width() { return this->WIDTH; }
   const int get_height() { return this->HEIGHT; }
   const int get_scale() { return this->SCALE; }
 
+  void clear_screen() { std::memset(pixels.data(), 0, WIDTH * HEIGHT); }
+
   u8& operator[](int index) {
-    if (index > display.size()) {
-      throw std::out_of_range("display[] : index out of range");
+    if (index > pixels.size()) {
+      throw std::out_of_range("index out of range");
     }
-    return display[index];
+    return pixels[index];
   }
 
-  void clear_screen() { std::memset(display.data(), 0, WIDTH * HEIGHT); }
-
  private:
-  static const int WIDTH = 64;
   static const int HEIGHT = 32;
   static const int SCALE = 10;
+  static const int WIDTH = 64;
 
-  std::array<u8, WIDTH * HEIGHT> display;
+  std::array<u8, WIDTH * HEIGHT> pixels;
 };

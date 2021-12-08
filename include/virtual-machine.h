@@ -3,7 +3,7 @@
 #include <string>
 
 #include "chip8.h"
-#include "window.h"
+#include "renderer.h"
 
 enum VirtualMachineState { kRomLoading = 1 << 0, kRomLoaded = 1 << 1 };
 
@@ -25,6 +25,6 @@ class VirtualMachine {
   inline bool CheckState(uint8_t state) { return emu_state_ & state; }
 
   Input& input;
-  Window* window;
+  Renderer* renderer;
   Chip8* chip8;
 };
