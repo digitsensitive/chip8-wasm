@@ -36,19 +36,19 @@ void VirtualMachine::FlashRom(char* data) {
   if (CheckState(kRomLoaded)) {
     // Rom is already loaded, reset state
     ToggleState(kRomLoaded);
-    chip8.Reset();
+    chip8.reset();
   }
 
-  chip8.SaveRom(data);
+  chip8.save_rom(data);
   ToggleState(kRomLoaded);
 }
 
 void VirtualMachine::Run() {
   if (CheckState(kRomLoaded) && !CheckState(kRomLoading)) {
-    chip8.UpdateTimers();
+    chip8.update_timers();
     window.PollEvents(input);
     for (int i = 0; i < kCyclePerSecond; ++i) {
-      chip8.Cycle();
+      chip8.cycle();
     }
     window.Draw(display);
   }

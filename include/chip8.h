@@ -12,16 +12,25 @@
 class Chip8 {
  public:
   Chip8();
-  void SaveRom(const void* source);
-  void Reset();
-  void Cycle();
-  void UpdateTimers();
+  ~Chip8();
+
+  void save_rom(const void* source);
+  void reset();
+  void cycle();
+  void update_timers();
 
  private:
   typedef std::unordered_map<u8, std::function<void()> > operations_set;
 
-  std::array<u8, 4096> memory;
+  u16 current_opcode;
+  u8 delay_timer;
+  u16 index_register;
+  u16 program_counter;
+  u8 sound_timer;
+  u16 stack_pointer;
+
   std::array<u8, 16> general_purpose_variable_registers;
+  std::array<u8, 4096> memory;
   std::array<u16, 16> stack;
 
   std::unordered_map<u8, operations_set> operations;
@@ -29,14 +38,7 @@ class Chip8 {
   Input& input;
   Rand rand;
 
-  u8 t_delay;
-  u8 t_sound;
-  u16 I;
-  u16 pc;
-  u16 sp;
-  u16 opcode;
-
-  void BindOperations();
+  void bind_operations();
 
   friend class Interpreter;
 };

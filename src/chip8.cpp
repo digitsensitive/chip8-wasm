@@ -1,37 +1,15 @@
-//
-// Created by Shlomi Nissan on 12/17/19.
-//
-
 #include "chip8.h"
 
 #include <cstring>
 #include <iostream>
 
+#include "font.h"
 #include "interpreter.h"
 
 using std::memcpy;
 using std::memset;
 
-const std::array<uint8_t, 0x50> kSprites{
-    0xF0, 0x90, 0x90, 0x90, 0xF0,  // 0
-    0x20, 0x60, 0x20, 0x20, 0x70,  // 1
-    0xF0, 0x10, 0xF0, 0x80, 0xF0,  // 2
-    0xF0, 0x10, 0xF0, 0x10, 0xF0,  // 3
-    0x90, 0x90, 0xF0, 0x10, 0x10,  // 4
-    0xF0, 0x80, 0xF0, 0x10, 0xF0,  // 5
-    0xF0, 0x80, 0xF0, 0x90, 0xF0,  // 6
-    0xF0, 0x10, 0x20, 0x40, 0x40,  // 7
-    0xF0, 0x90, 0xF0, 0x90, 0xF0,  // 8
-    0xF0, 0x90, 0xF0, 0x10, 0xF0,  // 9
-    0xF0, 0x90, 0xF0, 0x90, 0x90,  // A
-    0xE0, 0x90, 0xE0, 0x90, 0xE0,  // B
-    0xF0, 0x80, 0x80, 0x80, 0xF0,  // C
-    0xE0, 0x90, 0x90, 0x90, 0xE0,  // D
-    0xF0, 0x80, 0xF0, 0x80, 0xF0,  // E
-    0xF0, 0x80, 0xF0, 0x80, 0x80   // F
-};
-
-const int kStartAddress = 0x200;
+const int START_LOCATION_IN_MEMORY = 0x200;
 
 const int kOp1 = 0x1;  // Default operations set
 const int kOp0 = 0x0;
@@ -40,88 +18,100 @@ const int kOpE = 0xE;
 const int kOpF = 0xF;
 
 Chip8::Chip8()
-    : memory({0}),
-      general_purpose_variable_registers({0}),
-      stack({0}),
-      operations(),
+    : operations(),
       display(Display::Instance()),
       input(Input::Instance()),
-      t_delay(0),
-      t_sound(0),
-      I(0),
-      pc(kStartAddress),
-      sp(0),
-      opcode(0),
       rand(0, 255) {
+  this->current_opcode = 0;
+  this->delay_timer = 0;
+  this->index_register = 0;
+
+  // Program counter starts at 0x200 (Start adress program)
+  this->program_counter = START_LOCATION_IN_MEMORY;
+
+  this->sound_timer = 0;
+  this->stack_pointer = 0;
+
+  // Apply zero to all elements in the containers
+  this->general_purpose_variable_registers.fill(0);
+  this->memory.fill(0);
+  this->stack.fill(0);
+
   // Store sprites data at the beginning of the memory
-  memcpy(memory.data(), kSprites.data(), kSprites.size());
+  memcpy(memory.data(), FONTSET.data(), FONTSET.size());
 
-  BindOperations();
+  this->bind_operations();
 }
 
-void Chip8::SaveRom(const void* source) {
+Chip8::~Chip8() {}
+
+void Chip8::save_rom(const void* source) {
   // 0x200 (512) Start of most Chip-8 programs
-  memcpy(memory.data() + kStartAddress, source, memory.size() - kStartAddress);
+  memcpy(memory.data() + START_LOCATION_IN_MEMORY, source,
+         memory.size() - START_LOCATION_IN_MEMORY);
 }
 
-void Chip8::Reset() {
+void Chip8::reset() {
   // Clear out rom data from memory
-  memset(memory.data() + kStartAddress, 0, memory.size() - kStartAddress);
-  general_purpose_variable_registers = {0};
-  stack = {0};
-  I = 0;
-  pc = 0x200;
-  sp = 0;
-  t_delay = 0;
-  t_sound = 0;
+  memset(memory.data() + START_LOCATION_IN_MEMORY, 0,
+         memory.size() - START_LOCATION_IN_MEMORY);
+  this->general_purpose_variable_registers.fill(0);
+  this->stack.fill(0);
+  this->index_register = 0;
+  this->program_counter = 0x200;
+  this->stack_pointer = 0;
+  this->delay_timer = 0;
+  this->sound_timer = 0;
 
   display.ClearScreen();
 }
 
-void Chip8::Cycle() {
+void Chip8::cycle() {
   // Fetch opcode
-  opcode = memory[pc] << 8 | memory[pc + 1];
+  this->current_opcode =
+      memory[this->program_counter] << 8 | memory[this->program_counter + 1];
 
   // Increment PC before execution
-  pc += 2;
+  this->program_counter += 2;
 
   try {
-    switch ((opcode & 0xF000u) >> 12u) {
+    switch ((this->current_opcode & 0xF000u) >> 12u) {
       case kOp0:
-        operations[kOp0][(opcode & 0x000Fu)]();
+        operations[kOp0][(this->current_opcode & 0x000Fu)]();
         break;
       case kOp8:
-        operations[kOp8][(opcode & 0x000Fu)]();
+        operations[kOp8][(this->current_opcode & 0x000Fu)]();
         break;
       case kOpE:
-        operations[kOpE][(opcode & 0x000Fu)]();
+        operations[kOpE][(this->current_opcode & 0x000Fu)]();
         break;
       case kOpF:
-        operations[kOpF][(opcode & 0x00FFu)]();
+        operations[kOpF][(this->current_opcode & 0x00FFu)]();
         break;
       default: {
-        operations[kOp1][((opcode & 0xF000u) >> 12u)]();
+        operations[kOp1][((this->current_opcode & 0xF000u) >> 12u)]();
       }
     }
   } catch (const std::exception& e) {
     std::cerr << e.what() << '\n'
-              << "Failed to execute opcode: " << std::hex << opcode << '\n';
+              << "Failed to execute opcode: " << std::hex
+              << this->current_opcode << '\n';
   }
 }
 
-void Chip8::UpdateTimers() {
+void Chip8::update_timers() {
   // Decrement the delay timer if it's been set
-  if (t_delay > 0) {
-    --t_delay;
+  if (this->delay_timer > 0) {
+    --this->delay_timer;
   }
 
   // Decrement the sound timer if it's been set
-  if (t_sound > 0) {
-    --t_sound;
+  if (this->sound_timer > 0) {
+    --this->sound_timer;
   }
 }
 
-void Chip8::BindOperations() {
+void Chip8::bind_operations() {
   Interpreter d(*this);
 
   operations[kOp0][0x00] = std::bind(&Interpreter::OP_00E0, d);
