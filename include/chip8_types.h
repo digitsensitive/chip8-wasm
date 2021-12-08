@@ -1,7 +1,3 @@
-#pragma once
-
-#include <cstdint>
-
 // 8 bits = 1 byte -> [0-255] or [0x00-0xFF]
 // = unsigned char
 typedef uint8_t u8;
