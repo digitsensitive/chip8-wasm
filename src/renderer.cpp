@@ -58,7 +58,7 @@ bool Renderer::initialize() {
   return true;
 }
 
-void Renderer::PollEvents(Input &input) {
+void Renderer::PollEvents(Keypad &keypad) {
   SDL_Event event;
   while (SDL_PollEvent(&event) != 0) {
     if (event.type == SDL_QUIT) {
@@ -66,11 +66,11 @@ void Renderer::PollEvents(Input &input) {
     }
     if (event.type == SDL_KEYDOWN) {
       const uint8_t key = event.key.keysym.sym;
-      input[key] = 1;
+      keypad[key] = 1;
     }
     if (event.type == SDL_KEYUP) {
       const uint8_t &key = event.key.keysym.sym;
-      input[key] = 0;
+      keypad[key] = 0;
     }
   }
 }

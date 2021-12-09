@@ -3,7 +3,7 @@
 #include <SDL.h>
 
 #include "display.h"
-#include "input.h"
+#include "keypad.h"
 
 struct WindowProperties {
   const char* title;
@@ -19,7 +19,7 @@ class Renderer {
   bool get_running() { return running; }
 
   bool initialize();
-  void PollEvents(Input& input);
+  void PollEvents(Keypad& keypad);
   void draw(Display& display);
 
  private:

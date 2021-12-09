@@ -6,7 +6,7 @@
 
 #include "chip8_types.h"
 #include "display.h"
-#include "input.h"
+#include "keypad.h"
 #include "rand.h"
 
 class Chip8 {
@@ -20,6 +20,7 @@ class Chip8 {
   void update_timers();
 
   Display& get_display() { return *this->display; }
+  Keypad& get_keypad() { return *this->keypad; }
 
  private:
   typedef std::unordered_map<u8, std::function<void()> > operations_set;
@@ -37,7 +38,7 @@ class Chip8 {
 
   std::unordered_map<u8, operations_set> operations;
   Display* display;
-  Input& input;
+  Keypad* keypad;
   Rand rand;
 
   void bind_operations();

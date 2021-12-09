@@ -8,7 +8,7 @@
 
 const auto kCyclePerSecond = 10;  // Arbitrary, works best for most roms
 
-VirtualMachine::VirtualMachine() : input(Input::Instance()) {
+VirtualMachine::VirtualMachine() {
   this->chip8 = new Chip8();
 
   Display display = this->chip8->get_display();
@@ -63,7 +63,7 @@ void VirtualMachine::FlashRom(char* data) {
 void VirtualMachine::Run() {
   if (CheckState(kRomLoaded) && !CheckState(kRomLoading)) {
     chip8->update_timers();
-    renderer->PollEvents(input);
+    renderer->PollEvents(this->chip8->get_keypad());
     for (int i = 0; i < kCyclePerSecond; ++i) {
       chip8->cycle();
     }

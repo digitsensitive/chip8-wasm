@@ -13,7 +13,7 @@
     ------------------------------------------------
 */
 
-class Input {
+class Keypad {
  public:
   uint8_t& operator[](uint8_t index) {
     if (index > keys.size()) {
@@ -30,11 +30,6 @@ class Input {
   }
 
   uint8_t size() { return 0x10; }
-
-  static Input& Instance() {
-    static Input INSTANCE;
-    return INSTANCE;
-  }
 
  private:
   std::array<uint8_t, 256> keys;

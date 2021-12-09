@@ -212,7 +212,7 @@ void Interpreter::OP_Dxyn() {
 // Skip next instruction if key with the value of Vx is pressed
 void Interpreter::OP_Ex9E() {
   uint8_t Vx = getX();
-  if (c8.input.IsPressed(c8.general_purpose_variable_registers[Vx])) {
+  if (c8.keypad->IsPressed(c8.general_purpose_variable_registers[Vx])) {
     c8.program_counter += 2;
   }
 }
@@ -220,7 +220,7 @@ void Interpreter::OP_Ex9E() {
 // Skip next instruction if key with the value of Vx is not pressed
 void Interpreter::OP_ExA1() {
   uint8_t Vx = getX();
-  if (!c8.input.IsPressed(c8.general_purpose_variable_registers[Vx])) {
+  if (!c8.keypad->IsPressed(c8.general_purpose_variable_registers[Vx])) {
     c8.program_counter += 2;
   }
 }
@@ -234,8 +234,8 @@ void Interpreter::OP_Fx07() {
 // Wait for a key press, store the value of the key in Vx
 void Interpreter::OP_Fx0A() {
   uint8_t Vx = getX();
-  for (uint8_t i = 0; i < c8.input.size(); i++) {
-    if (c8.input.IsPressed(i)) {
+  for (uint8_t i = 0; i < c8.keypad->size(); i++) {
+    if (c8.keypad->IsPressed(i)) {
       c8.general_purpose_variable_registers[Vx] = i;
     }
   }
