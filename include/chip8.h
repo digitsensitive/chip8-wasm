@@ -7,7 +7,6 @@
 #include "chip8_types.h"
 #include "display.h"
 #include "keypad.h"
-#include "rand.h"
 
 class Chip8 {
  public:
@@ -16,15 +15,13 @@ class Chip8 {
 
   void save_rom(const void* source);
   void reset();
-  void cycle();
+  void execute_instructions();
   void update_timers();
 
   Display& get_display() { return *this->display; }
   Keypad& get_keypad() { return *this->keypad; }
 
  private:
-  typedef std::unordered_map<u8, std::function<void()> > operations_set;
-
   u16 current_opcode;
   u8 delay_timer;
   u16 index_register;
@@ -36,12 +33,6 @@ class Chip8 {
   std::array<u8, 4096> memory;
   std::array<u16, 16> stack;
 
-  std::unordered_map<u8, operations_set> operations;
   Display* display;
   Keypad* keypad;
-  Rand rand;
-
-  void bind_operations();
-
-  friend class Interpreter;
 };

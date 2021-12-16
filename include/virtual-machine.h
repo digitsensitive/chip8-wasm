@@ -25,5 +25,5 @@ class VirtualMachine {
   inline bool CheckState(uint8_t state) { return emu_state_ & state; }
 
   Renderer* renderer;
-  Chip8* chip8;
+  Chip8 chip8;
 };
