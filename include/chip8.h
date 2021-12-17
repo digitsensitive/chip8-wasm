@@ -15,7 +15,7 @@ class Chip8 {
 
   void save_rom(const void* source);
   void reset();
-  void execute_instructions();
+  void execute_instructions(bool logging);
   void update_timers();
 
   Display& get_display() { return *this->display; }
@@ -35,4 +35,28 @@ class Chip8 {
 
   Display* display;
   Keypad* keypad;
+
+  // Instructions
+
+  // 00E0 - CLS Clear the display.
+  void clear_screen();
+
+  // 1nnn - JP addr Jump to location nnn.
+  void jump_to_location();
+
+  // 6xkk - LD Vx, byte Set Vx = kk.
+  void set_general_purpose_variable_registers();
+
+  // 7xkk - ADD Vx, byte Set Vx = Vx + kk.
+  void add_to_general_purpose_variable_registers();
+
+  // Annn - LD I, addr Set I = nnn.
+  void set_index_register();
+
+  // Dxyn - DRW Vx, Vy, nibble
+  void draw_sprite();
+
+  // Helpers
+  u8 get_x();
+  u8 get_y();
 };

@@ -62,7 +62,7 @@ void VirtualMachine::Run() {
     this->chip8.update_timers();
     renderer->PollEvents(this->chip8.get_keypad());
     for (int i = 0; i < kCyclePerSecond; ++i) {
-      this->chip8.execute_instructions();
+      this->chip8.execute_instructions(true);
     }
     renderer->draw(this->chip8.get_display());
   }
