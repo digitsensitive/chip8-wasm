@@ -1,4 +1,4 @@
-# A CHIP-8 virtual machine written in C++ with WebAssembly
+# A CHIP-8 virtual machine written in C++ with WebAssembly
 
 This project was created to deal with the creation of an interpreter in more detail
 and to use [WebAssembly](https://webassembly.org) for the first time.
@@ -17,10 +17,11 @@ Have fun reading through and coding!
 - Get the [Emscripten SDK](https://emscripten.org/docs/getting_started/downloads.html)
 - In the root directory set the CMAKE Toolchain file by running: `CMAKE_TOOLCHAIN_FILE=/**/Emscripten.cmake` Ensure you update your path with the location of your emsdk installation location
 
-# Code formatter
+# Code formatter
+
 Use of [ClangFormat](https://clang.llvm.org/docs/ClangFormat.html). The style options are defined in the `.clang-format` file. For more details have a look at the official [Style Options](https://clang.llvm.org/docs/ClangFormatStyleOptions.html).
 
-# Emscripten Compiler
+# Emscripten Compiler
 
 The Emscripten Compiler Frontend (em++ für C++) is used to call the
 Emscripten compiler from the command line.

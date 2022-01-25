@@ -1,7 +1,7 @@
 {
   "name": "chip8-wasm",
   "version": "0.0.1",
-  "description": "CHIP-8 virtual machine written in C++ with WebAssembly",
+  "description": "CHIP-8 virtual machine written in C++ with WebAssembly",
   "repository": "https://github.com/digitsensitive/chip8-wasm.git",
   "author": "digitsensitive <digit.sensitivee@gmail.com>",
   "license": "MIT",
