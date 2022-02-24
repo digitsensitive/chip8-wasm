@@ -1,4 +1,5 @@
-#pragma once
+#ifndef DISPLAY_H
+#define DISPLAY_H
 
 #include <array>
 #include <cstring>
@@ -27,3 +28,5 @@ class Display {
 
   std::array<u8, WIDTH * HEIGHT> pixels;
 };
+
+#endif
