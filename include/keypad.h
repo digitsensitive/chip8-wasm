@@ -1,10 +1,14 @@
-#pragma once
+#ifndef KEYPAD_H
+#define KEYPAD_H
 
 #include <array>
 
 /*
+    Keypad class:
+    Chip-8 hexadecimal keypad with 16 keys, ranging from 0 to F.
+
     +----------------------+-----------------------+
-    |   Chip 8 Keyboard    |     Keyboard Map      |
+    |   Chip-8 Keyboard    |    Keyboard Map       |
     +----------------------+-----------------------+
     |   1    2    3    C   |    1    2    3    4   |
     |   4    5    6    D   |    Q    W    E    R   |
@@ -53,3 +57,5 @@ class Keypad {
       0x76,  // V
   };
 };
+
+#endif
