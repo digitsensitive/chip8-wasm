@@ -57,13 +57,35 @@ void VirtualMachine::FlashRom(char* data) {
   ToggleState(kRomLoaded);
 }
 
+void VirtualMachine::disassemble_program(char* data) {
+  this->disassembler.load_program(data);
+}
+
 void VirtualMachine::Run() {
   if (CheckState(kRomLoaded) && !CheckState(kRomLoading)) {
     this->chip8.update_timers();
-    renderer->PollEvents(this->chip8.get_keypad());
+    this->poll_events();
     for (int i = 0; i < kCyclePerSecond; ++i) {
       this->chip8.execute_instructions(true);
     }
     renderer->draw(this->chip8.get_display());
+  }
+}
+
+void VirtualMachine::poll_events() {
+  SDL_Event event;
+  Keypad keypad = this->chip8.get_keypad();
+  while (SDL_PollEvent(&event) != 0) {
+    const u8 key = event.key.keysym.sym;
+    switch (event.type) {
+      case SDL_QUIT:
+        break;
+      case SDL_KEYDOWN:
+        keypad.set_key(key, true);
+        break;
+      case SDL_KEYUP:
+        keypad.set_key(key, false);
+        break;
+    }
   }
 }

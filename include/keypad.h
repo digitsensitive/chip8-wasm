@@ -19,41 +19,43 @@
 
 class Keypad {
  public:
-  uint8_t& operator[](uint8_t index) {
+  u8& operator[](u8 index) {
     if (index > keys.size()) {
       throw std::out_of_range("keys[] : index out of range");
     }
     return keys[index];
   }
 
-  bool IsPressed(uint8_t key) {
+  bool IsPressed(u8 key) {
     if (key > keys.size()) {
       throw std::out_of_range("IsPressed : keys[] : index out of range");
     }
     return keys[kKeyMap[key]] == 1;
   }
 
-  uint8_t size() { return 0x10; }
+  void set_key(u8 key, bool state) { this->keys[key] = state; }
+
+  u8 size() { return 16; }
 
  private:
-  std::array<uint8_t, 256> keys;
+  std::array<u8, 256> keys{};
 
-  std::array<uint8_t, 0x10> kKeyMap = {
-      0x78,  // X
+  std::array<u8, 16> kKeyMap = {
       0x31,  // 1
       0x32,  // 2
       0x33,  // 3
+      0x34,  // 4
       0x71,  // Q
       0x77,  // W
       0x65,  // E
+      0x72,  // R
       0x61,  // A
       0x73,  // S
       0x64,  // D
-      0x7a,  // Z
-      0x63,  // C
-      0x34,  // 4
-      0x72,  // R
       0x66,  // F
+      0x7a,  // Z
+      0x78,  // X
+      0x63,  // C
       0x76,  // V
   };
 };

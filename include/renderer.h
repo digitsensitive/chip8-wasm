@@ -3,28 +3,24 @@
 #include <SDL.h>
 
 #include "display.h"
-#include "keypad.h"
 
 struct WindowProperties {
   const char* title;
   int width;
   int height;
 };
+
 class Renderer {
  public:
   Renderer(WindowProperties const& properties);
   ~Renderer();
 
   bool isCurrentDisplayModeValid();
-  bool get_running() { return running; }
 
   bool initialize();
-  void PollEvents(Keypad& keypad);
   void draw(Display& display);
 
  private:
-  bool running;
-
   SDL_Window* window;
   SDL_Renderer* renderer;
 

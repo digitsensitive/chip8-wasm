@@ -7,7 +7,6 @@ Renderer::Renderer(WindowProperties const &properties)
     : window_properties(properties) {
   this->window = nullptr;
   this->renderer = nullptr;
-  this->running = false;
 }
 
 Renderer::~Renderer() {
@@ -54,25 +53,7 @@ bool Renderer::initialize() {
     this->renderer = SDL_CreateRenderer(this->window, -1, 0);
   }
 
-  running = true;
   return true;
-}
-
-void Renderer::PollEvents(Keypad &keypad) {
-  SDL_Event event;
-  while (SDL_PollEvent(&event) != 0) {
-    if (event.type == SDL_QUIT) {
-      running = false;
-    }
-    if (event.type == SDL_KEYDOWN) {
-      const uint8_t key = event.key.keysym.sym;
-      keypad[key] = 1;
-    }
-    if (event.type == SDL_KEYUP) {
-      const uint8_t &key = event.key.keysym.sym;
-      keypad[key] = 0;
-    }
-  }
 }
 
 void Renderer::draw(Display &display) {

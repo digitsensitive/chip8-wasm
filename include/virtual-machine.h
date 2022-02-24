@@ -3,6 +3,8 @@
 #include <string>
 
 #include "chip8.h"
+#include "disassembler.h"
+#include "keypad.h"
 #include "renderer.h"
 
 enum VirtualMachineState { kRomLoading = 1 << 0, kRomLoaded = 1 << 1 };
@@ -15,7 +17,9 @@ class VirtualMachine {
   bool Boot();
   bool LoadRom(const std::string& kFile);
   void FlashRom(char* data);
+  void disassemble_program(char* data);
   void Run();
+  void poll_events();
 
  private:
   uint8_t emu_state_{0};
@@ -26,4 +30,5 @@ class VirtualMachine {
 
   Renderer* renderer;
   Chip8 chip8;
+  Disassembler disassembler;
 };
