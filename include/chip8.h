@@ -1,4 +1,5 @@
-#pragma once
+#ifndef CHIP8_H
+#define CHIP8_H
 
 #include <array>
 #include <functional>
@@ -68,3 +69,5 @@ class Chip8 {
   u8 get_x();
   u8 get_y();
 };
+
+#endif
