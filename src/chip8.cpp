@@ -9,7 +9,6 @@ const int START_LOCATION_IN_MEMORY = 0x200;
 
 Chip8::Chip8() {
   this->display = new Display();
-  this->keypad = new Keypad();
 
   this->current_opcode = 0;
   this->delay_timer = 0;
@@ -34,7 +33,6 @@ Chip8::Chip8() {
 Chip8::~Chip8() {
   // free up memories
   delete this->display;
-  delete this->keypad;
 }
 
 void Chip8::save_rom(const void* source) {
@@ -182,14 +180,14 @@ void Chip8::draw_sprite() {
 
 void Chip8::skip_instruction_if_key_pressed() {
   const u8 Vx = this->get_x();
-  if (this->keypad->is_pressed(this->general_purpose_variable_registers[Vx])) {
+  if (this->keypad.is_pressed(this->general_purpose_variable_registers[Vx])) {
     this->program_counter += 2;
   }
 }
 
 void Chip8::skip_instruction_if_key_is_not_pressed() {
   const u8 Vx = this->get_x();
-  if (!this->keypad->is_pressed(this->general_purpose_variable_registers[Vx])) {
+  if (!this->keypad.is_pressed(this->general_purpose_variable_registers[Vx])) {
     this->program_counter += 2;
   }
 }

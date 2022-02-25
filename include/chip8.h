@@ -19,7 +19,7 @@ class Chip8 {
   void update_timers();
 
  public:
-  void set_key(u8 key, bool state) { this->keypad->set_key(key, state); }
+  void set_key(u8 key, bool state) { this->keypad.set_key(key, state); }
 
   Display& get_display() { return *this->display; }
 
@@ -36,7 +36,7 @@ class Chip8 {
   std::array<u16, 16> stack;
 
   Display* display;
-  Keypad* keypad;
+  Keypad keypad;
 
   // Instructions
 
