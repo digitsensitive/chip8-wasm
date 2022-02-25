@@ -26,7 +26,7 @@ class Keypad {
     return keys[index];
   }
 
-  bool IsPressed(u8 key) {
+  bool is_pressed(u8 key) {
     if (key > keys.size()) {
       throw std::out_of_range("IsPressed : keys[] : index out of range");
     }

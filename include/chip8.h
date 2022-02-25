@@ -18,8 +18,10 @@ class Chip8 {
   void execute_instructions(bool logging);
   void update_timers();
 
+ public:
+  void set_key(u8 key, bool state) { this->keypad->set_key(key, state); }
+
   Display& get_display() { return *this->display; }
-  Keypad& get_keypad() { return *this->keypad; }
 
  private:
   u16 current_opcode;
@@ -55,6 +57,12 @@ class Chip8 {
 
   // Dxyn - DRW Vx, Vy, nibble
   void draw_sprite();
+
+  // Ex9E - SKP Vx
+  void skip_instruction_if_key_pressed();
+
+  // ExA1 - SKNP Vx
+  void skip_instruction_if_key_is_not_pressed();
 
   // Helpers
   u8 get_x();

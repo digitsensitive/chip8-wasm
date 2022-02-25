@@ -74,17 +74,16 @@ void VirtualMachine::Run() {
 
 void VirtualMachine::poll_events() {
   SDL_Event event;
-  Keypad keypad = this->chip8.get_keypad();
   while (SDL_PollEvent(&event) != 0) {
     const u8 key = event.key.keysym.sym;
     switch (event.type) {
       case SDL_QUIT:
         break;
       case SDL_KEYDOWN:
-        keypad.set_key(key, true);
+        this->chip8.set_key(key, true);
         break;
       case SDL_KEYUP:
-        keypad.set_key(key, false);
+        this->chip8.set_key(key, false);
         break;
     }
   }

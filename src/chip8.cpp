@@ -180,5 +180,19 @@ void Chip8::draw_sprite() {
   }
 }
 
+void Chip8::skip_instruction_if_key_pressed() {
+  const u8 Vx = this->get_x();
+  if (this->keypad->is_pressed(this->general_purpose_variable_registers[Vx])) {
+    this->program_counter += 2;
+  }
+}
+
+void Chip8::skip_instruction_if_key_is_not_pressed() {
+  const u8 Vx = this->get_x();
+  if (!this->keypad->is_pressed(this->general_purpose_variable_registers[Vx])) {
+    this->program_counter += 2;
+  }
+}
+
 u8 Chip8::get_x() { return (this->current_opcode & 0x0F00) >> 8; }
 u8 Chip8::get_y() { return (this->current_opcode & 0x00F0) >> 4; }
