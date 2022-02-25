@@ -39,5 +39,5 @@ target_link_libraries(
 
 
 set(CMAKE_EXECUTABLE_SUFFIX ".js")
-set_target_properties(${PROJECT_NAME} PROPERTIES LINK_FLAGS "-s WASM=1 -s EXPORTED_FUNCTIONS='['_main', '_load_game']' -s EXPORTED_RUNTIME_METHODS='[ccall, cwrap]'")
+set_target_properties(${PROJECT_NAME} PROPERTIES LINK_FLAGS "-s WASM=1 -s EXPORTED_FUNCTIONS='['_main', '_load_game', '_change_game_color']' -s EXPORTED_RUNTIME_METHODS='[ccall, cwrap]'")
 

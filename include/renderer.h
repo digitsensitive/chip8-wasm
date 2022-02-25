@@ -20,7 +20,17 @@ class Renderer {
   bool initialize();
   void draw(Display& display);
 
+  void set_color(u8 red, u8 green, u8 blue) {
+    this->red = red;
+    this->green = green;
+    this->blue = blue;
+  }
+
  private:
+  u8 red;
+  u8 green;
+  u8 blue;
+
   SDL_Window* window;
   SDL_Renderer* renderer;
 

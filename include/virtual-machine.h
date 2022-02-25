@@ -21,6 +21,10 @@ class VirtualMachine {
   void run();
   void poll_events();
 
+  void change_game_color(u8 red, u8 green, u8 blue) {
+    this->renderer->set_color(red, green, blue);
+  }
+
  private:
   uint8_t emu_state_{0};
 

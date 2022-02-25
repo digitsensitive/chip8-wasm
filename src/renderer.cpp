@@ -4,7 +4,12 @@
 #include "display.h"
 
 Renderer::Renderer(WindowProperties const &properties)
-    : window_properties(properties), window(nullptr), renderer(nullptr) {}
+    : window_properties(properties),
+      red(0xEF),
+      green(0xB3),
+      blue(0xEE),
+      window(nullptr),
+      renderer(nullptr) {}
 
 Renderer::~Renderer() {
   SDL_DestroyWindow(window);
@@ -71,7 +76,7 @@ void Renderer::draw(Display &display) {
 }
 
 void Renderer::draw_pixel(int x, int y, int scale) {
-  SDL_SetRenderDrawColor(renderer, 0xEF, 0xB3, 0xEE, 0xFF);
+  SDL_SetRenderDrawColor(renderer, this->red, this->green, this->blue, 0xFF);
 
   SDL_Rect rect{x * scale, y * scale, scale, scale};
   SDL_RenderDrawRect(renderer, &rect);

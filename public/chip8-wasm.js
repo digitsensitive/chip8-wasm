@@ -9318,6 +9318,9 @@ var ___wasm_call_ctors = Module["___wasm_call_ctors"] = createExportWrapper("__w
 var _load_game = Module["_load_game"] = createExportWrapper("load_game");
 
 /** @type {function(...*):?} */
+var _change_game_color = Module["_change_game_color"] = createExportWrapper("change_game_color");
+
+/** @type {function(...*):?} */
 var _disassemble = Module["_disassemble"] = createExportWrapper("disassemble");
 
 /** @type {function(...*):?} */
