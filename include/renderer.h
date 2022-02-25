@@ -1,4 +1,5 @@
-#pragma once
+#ifndef RENDERER_H
+#define RENDERER_H
 
 #include <SDL.h>
 
@@ -43,3 +44,5 @@ class Renderer {
 
   void draw_pixel(int x, int y, int scale);
 };
+
+#endif

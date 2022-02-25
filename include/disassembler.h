@@ -1,4 +1,5 @@
-#pragma once
+#ifndef DISASSEMBLER_H
+#define DISASSEMBLER_H
 
 #include <string>
 
@@ -18,3 +19,5 @@ class Disassembler {
 
   const int PROGRAM_STARTING_LOCATION;
 };
+
+#endif

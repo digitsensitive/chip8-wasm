@@ -1,4 +1,5 @@
-#pragma once
+#ifndef VIRTUALMACHINE_H
+#define VIRTUALMACHINE_H
 
 #include <string>
 
@@ -36,3 +37,5 @@ class VirtualMachine {
   Chip8 chip8;
   Disassembler disassembler;
 };
+
+#endif
