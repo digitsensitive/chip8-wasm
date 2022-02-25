@@ -22,9 +22,9 @@ VirtualMachine::~VirtualMachine() {
   delete this->renderer;
 }
 
-bool VirtualMachine::Boot() { return renderer->initialize(); }
+bool VirtualMachine::boot() { return renderer->initialize(); }
 
-bool VirtualMachine::LoadRom(const std::string& kFile) {
+bool VirtualMachine::load_rom(const std::string& kFile) {
   ToggleState(kRomLoading);  // Turn on rom loading state
 
   std::ifstream rom(kFile);
@@ -41,12 +41,12 @@ bool VirtualMachine::LoadRom(const std::string& kFile) {
                 std::istreambuf_iterator<char>());
 
   ToggleState(kRomLoading);  // Turn off rom loading state
-  FlashRom(buffer.data());
+  flash_rom(buffer.data());
 
   return true;
 }
 
-void VirtualMachine::FlashRom(char* data) {
+void VirtualMachine::flash_rom(char* data) {
   if (CheckState(kRomLoaded)) {
     // Rom is already loaded, reset state
     ToggleState(kRomLoaded);
@@ -61,7 +61,7 @@ void VirtualMachine::disassemble_program(char* data) {
   this->disassembler.load_program(data);
 }
 
-void VirtualMachine::Run() {
+void VirtualMachine::run() {
   if (CheckState(kRomLoaded) && !CheckState(kRomLoading)) {
     this->chip8.update_timers();
     this->poll_events();

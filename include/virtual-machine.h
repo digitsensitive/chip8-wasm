@@ -14,11 +14,11 @@ class VirtualMachine {
   VirtualMachine();
   ~VirtualMachine();
 
-  bool Boot();
-  bool LoadRom(const std::string& kFile);
-  void FlashRom(char* data);
+  bool boot();
+  bool load_rom(const std::string& kFile);
+  void flash_rom(char* data);
   void disassemble_program(char* data);
-  void Run();
+  void run();
   void poll_events();
 
  private:
