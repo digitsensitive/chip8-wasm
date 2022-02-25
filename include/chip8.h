@@ -2,8 +2,6 @@
 #define CHIP8_H
 
 #include <array>
-#include <functional>
-#include <unordered_map>
 
 #include "chip8_types.h"
 #include "display.h"
@@ -64,6 +62,9 @@ class Chip8 {
 
   // ExA1 - SKNP Vx
   void skip_instruction_if_key_is_not_pressed();
+
+  // Fx0A - LD Vx, K
+  void wait_for_key_pressed();
 
   // Helpers
   u8 get_x();

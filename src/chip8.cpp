@@ -110,10 +110,38 @@ void Chip8::execute_instructions(bool logging) {
 
     case 0xD000:
       if (logging) {
-        printf("Instruction Dxyn - DRW Vx, Vy, nibble. \n");
+        printf("Instruction Dxyn - DRW Vx, Vy, nibble.\n");
       }
       this->draw_sprite();
       break;
+
+    case 0xE000:
+      switch (this->current_opcode & 0x00FF) {
+        case 0x009E:
+          if (logging) {
+            printf("Instruction Ex9E - SKP Vx.\n");
+          }
+          this->skip_instruction_if_key_pressed();
+          break;
+
+        case 0x00A1:
+          if (logging) {
+            printf("Instruction ExA1 - SKNP Vx.\n");
+          }
+          this->skip_instruction_if_key_is_not_pressed();
+          break;
+      }
+      break;
+
+    case 0xF000:
+      switch (this->current_opcode & 0x00FF) {
+        case 0x000A:
+          if (logging) {
+            printf("Instruction Fx0A - LD Vx, K.\n");
+          }
+          this->wait_for_key_pressed();
+          break;
+      }
 
     default:
       printf("ERROR: Unrecognized opcode: 0x%X\n", this->current_opcode);
@@ -189,6 +217,21 @@ void Chip8::skip_instruction_if_key_is_not_pressed() {
   const u8 Vx = this->get_x();
   if (!this->keypad.is_pressed(this->general_purpose_variable_registers[Vx])) {
     this->program_counter += 2;
+  }
+}
+
+void Chip8::wait_for_key_pressed() {
+  bool key_pressed = false;
+  const u8 Vx = this->get_x();
+  for (u8 i = 0; i < this->keypad.size(); i++) {
+    if (this->keypad.is_pressed(i)) {
+      this->general_purpose_variable_registers[Vx] = i;
+      key_pressed = true;
+    }
+  }
+
+  if (!key_pressed) {
+    this->program_counter -= 2;
   }
 }
 
