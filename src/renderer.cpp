@@ -4,10 +4,7 @@
 #include "display.h"
 
 Renderer::Renderer(WindowProperties const &properties)
-    : window_properties(properties) {
-  this->window = nullptr;
-  this->renderer = nullptr;
-}
+    : window_properties(properties), window(nullptr), renderer(nullptr) {}
 
 Renderer::~Renderer() {
   SDL_DestroyWindow(window);
@@ -15,7 +12,7 @@ Renderer::~Renderer() {
   SDL_Quit();
 }
 
-bool Renderer::isCurrentDisplayModeValid() {
+bool Renderer::is_current_display_mode_valid() {
   // Returns 0 on success or a negative error code on failure
   int currentDisplayModeReturnValue = SDL_GetCurrentDisplayMode(0, &current);
 
@@ -33,7 +30,7 @@ bool Renderer::initialize() {
     return false;
   }
 
-  if (!isCurrentDisplayModeValid()) {
+  if (!is_current_display_mode_valid()) {
     printf("Validation of current display mode failed: %s\n", SDL_GetError());
     return false;
   };
@@ -65,7 +62,7 @@ void Renderer::draw(Display &display) {
   for (int y = 0; y < display.get_height(); y++) {
     for (int x = 0; x < display.get_width(); x++) {
       if (display[x + (y * display.get_width())]) {
-        DrawPixel(x, y, display.get_scale());
+        draw_pixel(x, y, display.get_scale());
       }
     }
   }
@@ -73,7 +70,7 @@ void Renderer::draw(Display &display) {
   SDL_RenderPresent(renderer);
 }
 
-void Renderer::DrawPixel(int x, int y, int scale) {
+void Renderer::draw_pixel(int x, int y, int scale) {
   SDL_SetRenderDrawColor(renderer, 0xEF, 0xB3, 0xEE, 0xFF);
 
   SDL_Rect rect{x * scale, y * scale, scale, scale};

@@ -15,7 +15,7 @@ class Renderer {
   Renderer(WindowProperties const& properties);
   ~Renderer();
 
-  bool isCurrentDisplayModeValid();
+  bool is_current_display_mode_valid();
 
   bool initialize();
   void draw(Display& display);
@@ -31,5 +31,5 @@ class Renderer {
 
   WindowProperties window_properties;
 
-  void DrawPixel(int x, int y, int scale);
+  void draw_pixel(int x, int y, int scale);
 };
