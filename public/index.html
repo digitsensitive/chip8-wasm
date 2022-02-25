@@ -5,19 +5,22 @@
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
   </head>
   <body>
-        <div id="shell">
-          <canvas id="canvas" oncontextmenu="event.preventDefault()"></canvas>
-        </div>
-        <div id="selection">
-            <select id="game-selection">
-              <option>SELECT GAME</option>
-              <option value="IBM_LOGO.ch8">IBM LOGO</option>
-              <option value="PONG.ch8">PONG</option>
-              <option value="BRIX.ch8">BRIX</option>
-              <option value="TETRIS.ch8">TETRIS</option>
-              <option value="INVADERS.ch8">INVADERS</option>
-            </select>
-      </div>
+    <div id="shell">
+      <canvas id="canvas" oncontextmenu="event.preventDefault()"></canvas>
+    </div>
+    <div id="selection">
+      <select id="game-selection">
+        <option>SELECT GAME</option>
+        <option value="IBM_LOGO.ch8">IBM LOGO</option>
+        <option value="PONG.ch8">PONG</option>
+        <option value="BRIX.ch8">BRIX</option>
+        <option value="TETRIS.ch8">TETRIS</option>
+        <option value="INVADERS.ch8">INVADERS</option>
+      </select>
+    </div>
+    <div>
+      <label for="colorpicker">Select Game Color:</label>
+      <input type="color" id="colorpicker" value="#EFB3EE" />
     </div>
     <script type="text/javascript">
       var Module = {
@@ -26,7 +29,7 @@
         })(),
       };
 
-      document.addEventListener("DOMContentLoaded", function () {
+      document.addEventListener("DOMContentLoaded", () => {
         document.querySelector("#game-selection").onchange = async (event) => {
           const filename = event.target.value;
           const response = await fetch(`./roms/${filename}`);
@@ -34,6 +37,19 @@
           const gameData = new Uint8Array(arrayBuffer);
           const loadGame = Module.cwrap("load_game", "null", ["array"]);
           loadGame(gameData);
+        };
+
+        document.querySelector("#colorpicker").onchange = async (event) => {
+          const color = event.target.value.substring(1); // remove first char #
+          const redColor = "0x" + color.substring(0, 2);
+          const greenColor = "0x" + color.substring(2, 4);
+          const blueColor = "0x" + color.substring(4, 6);
+          const changeGameColor = Module.cwrap("change_game_color", "null", [
+            "number",
+            "number",
+            "number",
+          ]);
+          changeGameColor(redColor, greenColor, blueColor);
         };
       });
     </script>
