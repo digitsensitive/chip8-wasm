@@ -75,7 +75,10 @@ class Chip8 {
   void add_to_general_purpose_variable_registers();
 
   // [8xy0, Assig]: LD Vx, Vy - Set Vx = Vy
-  void load_vy_value_in_vx();
+  void load_vy_in_vx();
+
+  // [8xy1, BitOp]: OR Vx, Vy - Set VX to VX or VY (Bitwise OR operation)
+  void set_vx_to_bitwise_or_of_vx_and_vy();
 
   // Annn - LD I, addr Set I = nnn.
   void set_index_register();

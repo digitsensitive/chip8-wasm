@@ -148,7 +148,16 @@ void Chip8::execute_instructions(bool logging) {
           if (logging) {
             printf("[8xy0, Assig]: LD Vx, Vy - Set Vx = Vy. \n");
           }
-          this->load_vy_value_in_vx();
+          this->load_vy_in_vx();
+          break;
+
+        case 0x0001:
+          if (logging) {
+            printf(
+                "[8xy1, BitOp]: OR Vx, Vy - Set VX to VX or VY (Bitwise OR "
+                "operation). \n");
+          }
+          this->set_vx_to_bitwise_or_of_vx_and_vy();
           break;
 
         default:
@@ -271,10 +280,17 @@ void Chip8::add_to_general_purpose_variable_registers() {
   this->general_purpose_variable_registers[Vx] += byte;
 }
 
-void Chip8::load_vy_value_in_vx() {
+void Chip8::load_vy_in_vx() {
   const u8 Vx = this->get_x();
   const u8 Vy = this->get_y();
   this->general_purpose_variable_registers[Vx] =
+      this->general_purpose_variable_registers[Vy];
+}
+
+void Chip8::set_vx_to_bitwise_or_of_vx_and_vy() {
+  const u8 Vx = this->get_x();
+  const u8 Vy = this->get_y();
+  this->general_purpose_variable_registers[Vx] |=
       this->general_purpose_variable_registers[Vy];
 }
 
