@@ -70,16 +70,24 @@ void Chip8::execute_instructions(bool logging) {
       switch (this->current_opcode) {
         case 0x00E0:
           if (logging) {
-            printf("Instruction 00E0 - CLS Clear the display.\n");
+            printf("[00E0, Display]: CLS - Clear display. \n");
           }
           this->clear_screen();
           break;
 
+        case 0x00EE:
+          if (logging) {
+            printf("[00EE, Flow]: RET - Return from a subroutine. \n");
+          }
+          this->return_from_subroutine();
+          break;
+
         default:
-          printf("ERROR: Unrecognized opcode 0x%X\n", this->current_opcode);
+          printf("[ERROR]: Unrecognized opcode 0x%X. \n", this->current_opcode);
           exit(EXIT_FAILURE);
       }
       break;
+
     case 0x1000:
       if (logging) {
         printf("Instruction 1nnn - JP addr Jump to location nnn.\n");
@@ -145,6 +153,7 @@ void Chip8::execute_instructions(bool logging) {
 
     default:
       printf("ERROR: Unrecognized opcode: 0x%X\n", this->current_opcode);
+      exit(EXIT_FAILURE);
   }
 }
 
@@ -161,6 +170,10 @@ void Chip8::update_timers() {
 }
 
 void Chip8::clear_screen() { this->display->clear_screen(); }
+
+void Chip8::return_from_subroutine() {
+  this->program_counter = this->stack[--this->stack_pointer];
+}
 
 void Chip8::jump_to_location() {
   const u16 address = this->current_opcode & 0x0FFF;

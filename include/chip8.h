@@ -37,12 +37,23 @@ class Chip8 {
   Display* display;
   Keypad keypad;
 
-  // Instructions
+  /*
+    Standard Chip-8 Instructions:
+    [Opcode, Type]: Syntax for assembly language - Explanation
+    Be aware: There is no official syntax for the assembly language
 
-  // 00E0 - CLS Clear the display.
+    Not supported:
+    - [0nnn, Call]: SYS addr - Jump to a machine code routine at nnn.
+    - Super Chip-48 Instructions
+  */
+
+  // [00E0, Display]: CLS - Clear display
   void clear_screen();
 
-  // 1nnn - JP addr Jump to location nnn.
+  // [00EE, Flow]: RET - Return from a subroutine
+  void return_from_subroutine();
+
+  // [1nnn - JP addr Jump to location nnn.
   void jump_to_location();
 
   // 6xkk - LD Vx, byte Set Vx = kk.
