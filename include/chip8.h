@@ -53,8 +53,11 @@ class Chip8 {
   // [00EE, Flow]: RET - Return from a subroutine
   void return_from_subroutine();
 
-  // [1nnn - JP addr Jump to location nnn.
+  // [1nnn, Flow]: JP addr - Jump to location nnn
   void jump_to_location();
+
+  // [2nnn, Flow]: CALL addr - Call subroutine at nnn
+  void call_subroutine();
 
   // 6xkk - LD Vx, byte Set Vx = kk.
   void set_general_purpose_variable_registers();

@@ -90,9 +90,16 @@ void Chip8::execute_instructions(bool logging) {
 
     case 0x1000:
       if (logging) {
-        printf("Instruction 1nnn - JP addr Jump to location nnn.\n");
+        printf("[1nnn, Flow]: JP addr - Jump to location nnn. \n");
       }
       this->jump_to_location();
+      break;
+
+    case 0x2000:
+      if (logging) {
+        printf("[2nnn, Flow]: CALL addr - Call subroutine at nnn. \n");
+      }
+      this->call_subroutine();
       break;
 
     case 0x6000:
@@ -177,6 +184,12 @@ void Chip8::return_from_subroutine() {
 
 void Chip8::jump_to_location() {
   const u16 address = this->current_opcode & 0x0FFF;
+  this->program_counter = address;
+}
+
+void Chip8::call_subroutine() {
+  const u16 address = this->current_opcode & 0x0FFF;
+  this->stack[this->stack_pointer++] = this->program_counter;
   this->program_counter = address;
 }
 
