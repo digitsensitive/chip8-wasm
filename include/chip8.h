@@ -59,6 +59,12 @@ class Chip8 {
   // [2nnn, Flow]: CALL addr - Call subroutine at nnn
   void call_subroutine();
 
+  // [3xnn, Cond]: SE Vx, byte - Skip next instruction if Vx = nn
+  void skip_instruction_if_equal();
+
+  // [4xnn, Cond]: SNE Vx, byte - Skip next instruction if Vx != nn
+  void skip_instruction_if_not_equal();
+
   // 6xkk - LD Vx, byte Set Vx = kk.
   void set_general_purpose_variable_registers();
 

@@ -102,6 +102,23 @@ void Chip8::execute_instructions(bool logging) {
       this->call_subroutine();
       break;
 
+    case 0x3000:
+      if (logging) {
+        printf(
+            "[3xnn, Cond]: SE Vx, byte - Skip next instruction if Vx = nn. \n");
+      }
+      this->skip_instruction_if_equal();
+      break;
+
+    case 0x4000:
+      if (logging) {
+        printf(
+            "[4xnn, Cond]: SNE Vx, byte - Skip next instruction if Vx != nn. "
+            "\n");
+      }
+      this->skip_instruction_if_not_equal();
+      break;
+
     case 0x6000:
       if (logging) {
         printf("Instruction 6xkk - LD Vx, byte Set Vx = kk.\n");
@@ -191,6 +208,22 @@ void Chip8::call_subroutine() {
   const u16 address = this->current_opcode & 0x0FFF;
   this->stack[this->stack_pointer++] = this->program_counter;
   this->program_counter = address;
+}
+
+void Chip8::skip_instruction_if_equal() {
+  const u8 Vx = this->get_x();
+  const u8 byte = this->current_opcode & 0x00FF;
+  if (this->general_purpose_variable_registers[Vx] == byte) {
+    this->program_counter += 2;
+  }
+}
+
+void Chip8::skip_instruction_if_not_equal() {
+  const u8 Vx = this->get_x();
+  const u8 byte = this->current_opcode & 0x00FF;
+  if (this->general_purpose_variable_registers[Vx] != byte) {
+    this->program_counter += 2;
+  }
 }
 
 void Chip8::set_general_purpose_variable_registers() {
