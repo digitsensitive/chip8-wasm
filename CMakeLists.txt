@@ -26,7 +26,8 @@ add_executable(${PROJECT_NAME}
   src/main.cpp
   src/chip8.cpp
   src/virtual-machine.cpp
-  src/renderer.cpp)
+  src/renderer.cpp
+  src/disassembler.cpp)
 
 target_include_directories(${PROJECT_NAME} PRIVATE 
   include

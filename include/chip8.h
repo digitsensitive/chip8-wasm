@@ -68,11 +68,14 @@ class Chip8 {
   // [5xy0, Cond]: SE Vx, Vy - Skip next instruction if Vx = Vy
   void skip_next_instruction_if_vx_equal_vy();
 
-  // 6xkk - LD Vx, byte Set Vx = kk.
+  // [6xnn, Const]: LD Vx, byte - Set Vx = nn
   void set_general_purpose_variable_registers();
 
-  // 7xkk - ADD Vx, byte Set Vx = Vx + kk.
+  // [7xnn, Const]: ADD Vx, byte - Add nn to Vx
   void add_to_general_purpose_variable_registers();
+
+  // [8xy0, Assig]: LD Vx, Vy - Set Vx = Vy
+  void load_vy_value_in_vx();
 
   // Annn - LD I, addr Set I = nnn.
   void set_index_register();

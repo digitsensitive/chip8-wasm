@@ -130,16 +130,31 @@ void Chip8::execute_instructions(bool logging) {
 
     case 0x6000:
       if (logging) {
-        printf("Instruction 6xkk - LD Vx, byte Set Vx = kk.\n");
+        printf("[6xnn, Const]: LD Vx, byte - Set Vx = nn. \n");
       }
       this->set_general_purpose_variable_registers();
       break;
 
     case 0x7000:
       if (logging) {
-        printf("Instruction 7xkk - ADD Vx, byte Set Vx = Vx + kk.\n");
+        printf("[7xnn, Const]: ADD Vx, byte - Add nn to Vx. \n");
       }
       this->add_to_general_purpose_variable_registers();
+      break;
+
+    case 0x8000:
+      switch (this->current_opcode & 0x000F) {
+        case 0x0000:
+          if (logging) {
+            printf("[8xy0, Assig]: LD Vx, Vy - Set Vx = Vy. \n");
+          }
+          this->load_vy_value_in_vx();
+          break;
+
+        default:
+          printf("[ERROR]: Unrecognized opcode 0x%X. \n", this->current_opcode);
+          exit(EXIT_FAILURE);
+      }
       break;
 
     case 0xA000:
@@ -254,6 +269,13 @@ void Chip8::add_to_general_purpose_variable_registers() {
   const u8 Vx = this->get_x();
   const u8 byte = this->current_opcode & 0x00FF;
   this->general_purpose_variable_registers[Vx] += byte;
+}
+
+void Chip8::load_vy_value_in_vx() {
+  const u8 Vx = this->get_x();
+  const u8 Vy = this->get_y();
+  this->general_purpose_variable_registers[Vx] =
+      this->general_purpose_variable_registers[Vy];
 }
 
 void Chip8::set_index_register() {
