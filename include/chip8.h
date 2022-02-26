@@ -60,10 +60,13 @@ class Chip8 {
   void call_subroutine();
 
   // [3xnn, Cond]: SE Vx, byte - Skip next instruction if Vx = nn
-  void skip_instruction_if_equal();
+  void skip_next_instruction_if_equal();
 
   // [4xnn, Cond]: SNE Vx, byte - Skip next instruction if Vx != nn
-  void skip_instruction_if_not_equal();
+  void skip_next_instruction_if_not_equal();
+
+  // [5xy0, Cond]: SE Vx, Vy - Skip next instruction if Vx = Vy
+  void skip_next_instruction_if_vx_equal_vy();
 
   // 6xkk - LD Vx, byte Set Vx = kk.
   void set_general_purpose_variable_registers();

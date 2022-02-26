@@ -107,7 +107,7 @@ void Chip8::execute_instructions(bool logging) {
         printf(
             "[3xnn, Cond]: SE Vx, byte - Skip next instruction if Vx = nn. \n");
       }
-      this->skip_instruction_if_equal();
+      this->skip_next_instruction_if_equal();
       break;
 
     case 0x4000:
@@ -116,7 +116,16 @@ void Chip8::execute_instructions(bool logging) {
             "[4xnn, Cond]: SNE Vx, byte - Skip next instruction if Vx != nn. "
             "\n");
       }
-      this->skip_instruction_if_not_equal();
+      this->skip_next_instruction_if_not_equal();
+      break;
+
+    case 0x5000:
+      if (logging) {
+        printf(
+            "[5xy0, Cond]: SE Vx, Vy - Skip next instruction if Vx = Vy. "
+            "\n");
+      }
+      this->skip_next_instruction_if_vx_equal_vy();
       break;
 
     case 0x6000:
@@ -210,7 +219,7 @@ void Chip8::call_subroutine() {
   this->program_counter = address;
 }
 
-void Chip8::skip_instruction_if_equal() {
+void Chip8::skip_next_instruction_if_equal() {
   const u8 Vx = this->get_x();
   const u8 byte = this->current_opcode & 0x00FF;
   if (this->general_purpose_variable_registers[Vx] == byte) {
@@ -218,10 +227,19 @@ void Chip8::skip_instruction_if_equal() {
   }
 }
 
-void Chip8::skip_instruction_if_not_equal() {
+void Chip8::skip_next_instruction_if_not_equal() {
   const u8 Vx = this->get_x();
   const u8 byte = this->current_opcode & 0x00FF;
   if (this->general_purpose_variable_registers[Vx] != byte) {
+    this->program_counter += 2;
+  }
+}
+
+void Chip8::skip_next_instruction_if_vx_equal_vy() {
+  const u8 Vx = this->get_x();
+  const u8 Vy = this->get_y();
+  if (this->general_purpose_variable_registers[Vx] ==
+      this->general_purpose_variable_registers[Vy]) {
     this->program_counter += 2;
   }
 }
