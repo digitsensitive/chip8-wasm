@@ -160,6 +160,15 @@ void Chip8::execute_instructions(bool logging) {
           this->set_vx_to_bitwise_or_of_vx_and_vy();
           break;
 
+        case 0x0002:
+          if (logging) {
+            printf(
+                "[8xy2, BitOp]: AND Vx, Vy - Set Vx to Vx and Vy (Bitwise AND "
+                "operation). \n");
+          }
+          this->set_vx_to_bitwise_and_of_vx_and_vy();
+          break;
+
         default:
           printf("[ERROR]: Unrecognized opcode 0x%X. \n", this->current_opcode);
           exit(EXIT_FAILURE);
@@ -291,6 +300,13 @@ void Chip8::set_vx_to_bitwise_or_of_vx_and_vy() {
   const u8 Vx = this->get_x();
   const u8 Vy = this->get_y();
   this->general_purpose_variable_registers[Vx] |=
+      this->general_purpose_variable_registers[Vy];
+}
+
+void Chip8::set_vx_to_bitwise_and_of_vx_and_vy() {
+  const u8 Vx = this->get_x();
+  const u8 Vy = this->get_y();
+  this->general_purpose_variable_registers[Vx] &=
       this->general_purpose_variable_registers[Vy];
 }
 
