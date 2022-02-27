@@ -59,13 +59,13 @@ class Chip8 {
   // [2nnn, Flow]: CALL addr - Call subroutine at nnn
   void call_subroutine();
 
-  // [3xnn, Cond]: SE Vx, byte - Skip next instruction if Vx = nn
+  // [3xnn, Cond]: SE Vx, byte - Skip next instruction if Vx == nn
   void skip_next_instruction_if_equal();
 
   // [4xnn, Cond]: SNE Vx, byte - Skip next instruction if Vx != nn
   void skip_next_instruction_if_not_equal();
 
-  // [5xy0, Cond]: SE Vx, Vy - Skip next instruction if Vx = Vy
+  // [5xy0, Cond]: SE Vx, Vy - Skip next instruction if Vx == Vy
   void skip_next_instruction_if_vx_equal_vy();
 
   // [6xnn, Const]: LD Vx, byte - Set Vx = nn
@@ -104,8 +104,14 @@ class Chip8 {
   // [8xyE, BitOp]: SHL Vx {, Vy} - Set Vx = Vx SHL 1
   void shift_vx_by_one_to_left();
 
-  // Annn - LD I, addr Set I = nnn.
+  // [9xy0, Cond]: SNE Vx, Vy - Skip next instruction if Vx != Vy
+  void skip_next_instruction_if_vx_not_equal_vy();
+
+  // [Annn, MEM]: LD I, addr - Set I to the location nnn
   void set_index_register();
+
+  // [Bnnn, Flow]: JP V0, addr - Jump to the location nnn plus V0
+  void jump_to_extended_v0_location();
 
   // Dxyn - DRW Vx, Vy, nibble
   void draw_sprite();

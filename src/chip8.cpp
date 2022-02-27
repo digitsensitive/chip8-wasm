@@ -219,11 +219,27 @@ void Chip8::execute_instructions(bool logging) {
       }
       break;
 
+    case 0x9000:
+      if (logging) {
+        printf(
+            "[9xy0, Cond]: SNE Vx, Vy - Skip next instruction if Vx != Vy. \n");
+      }
+      this->skip_next_instruction_if_vx_not_equal_vy();
+      break;
+
     case 0xA000:
       if (logging) {
-        printf("Instruction Annn - LD I, addr Set I = nnn.\n");
+        printf("[Annn, MEM]: LD I, addr - Set I to the location nnn. \n");
       }
       this->set_index_register();
+      break;
+
+    case 0xB000:
+      if (logging) {
+        printf(
+            "[Bnnn, Flow]: JP V0, addr - Jump to the location nnn plus V0. \n");
+      }
+      this->jump_to_extended_v0_location();
       break;
 
     case 0xD000:
@@ -422,15 +438,29 @@ void Chip8::shift_vx_by_one_to_left() {
   this->general_purpose_variable_registers[Vx] <<= 1;
 }
 
+void Chip8::skip_next_instruction_if_vx_not_equal_vy() {
+  const u8 Vx = this->get_x();
+  const u8 Vy = this->get_y();
+  if (this->general_purpose_variable_registers[Vx] !=
+      this->general_purpose_variable_registers[Vy]) {
+    this->program_counter += 2;
+  }
+}
+
 void Chip8::set_index_register() {
-  const u16 address = this->current_opcode & 0x0FFF;
+  const u16 address = this->current_opcode & 0x0FFFu;
   this->index_register = address;
+}
+
+void Chip8::jump_to_extended_v0_location() {
+  const u16 address = this->current_opcode & 0x0FFFu;
+  this->program_counter = this->general_purpose_variable_registers[0] + address;
 }
 
 void Chip8::draw_sprite() {
   const u16 Vx = this->general_purpose_variable_registers[this->get_x()];
   const u16 Vy = this->general_purpose_variable_registers[this->get_y()];
-  const u16 height = this->current_opcode & 0x000F;
+  const u16 height = this->current_opcode & 0x000Fu;
   u16 pixel;
 
   this->general_purpose_variable_registers[0xF] = 0;
