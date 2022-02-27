@@ -199,6 +199,13 @@ void Chip8::execute_instructions(bool logging) {
           this->shift_vx_by_one_to_right();
           break;
 
+        case 0x0007:
+          if (logging) {
+            printf("[8xy7, Math]: SUBN Vx, Vy - Set Vx = Vy - Vx. \n");
+          }
+          this->set_vx_to_vy_minus_vx();
+          break;
+
         default:
           printf("[ERROR]: Unrecognized opcode 0x%X. \n", this->current_opcode);
           exit(EXIT_FAILURE);
@@ -361,7 +368,11 @@ void Chip8::subtract_vy_from_vx() {
   const u8 Vx = this->get_x();
   const u8 Vy = this->get_y();
 
-  this->general_purpose_variable_registers[0xF] = (Vx > Vy) ? 1 : 0;
+  this->general_purpose_variable_registers[0xF] =
+      (this->general_purpose_variable_registers[Vx] >
+       this->general_purpose_variable_registers[Vy])
+          ? 1
+          : 0;
 
   this->general_purpose_variable_registers[Vx] -=
       this->general_purpose_variable_registers[Vy];
@@ -376,6 +387,21 @@ void Chip8::shift_vx_by_one_to_right() {
 
   // shift Vx one to the right
   this->general_purpose_variable_registers[Vx] >>= 1;
+}
+
+void Chip8::set_vx_to_vy_minus_vx() {
+  const u8 Vx = this->get_x();
+  const u8 Vy = this->get_y();
+
+  this->general_purpose_variable_registers[0xF] =
+      (this->general_purpose_variable_registers[Vy] >
+       this->general_purpose_variable_registers[Vx])
+          ? 1
+          : 0;
+
+  this->general_purpose_variable_registers[Vx] =
+      this->general_purpose_variable_registers[Vy] -
+      this->general_purpose_variable_registers[Vx];
 }
 
 void Chip8::set_index_register() {

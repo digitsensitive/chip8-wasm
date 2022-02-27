@@ -97,6 +97,10 @@ class Chip8 {
   // [8xy6, BitOp]: SHR Vx {, Vy} - Set Vx = Vx SHR 1
   void shift_vx_by_one_to_right();
 
+  // [8xy7, Math]: SUBN Vx, Vy - Set Vx = Vy - Vx
+  // If Vy is larger than Vx, then Vf is set to 1, otherwise 0
+  void set_vx_to_vy_minus_vx();
+
   // Annn - LD I, addr Set I = nnn.
   void set_index_register();
 
