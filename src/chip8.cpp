@@ -331,6 +331,33 @@ void Chip8::execute_instructions(bool logging) {
           }
           this->set_i_to_sprite_character_in_vx();
           break;
+
+        case 0x0033:
+          if (logging) {
+            printf(
+                "[FX33, BCD]: LD B, Vx - Store binary-coded decimal "
+                "representation of Vx in memory locations I, I+1, and I+2. \n");
+          }
+          this->store_binary_coded_decimal_of_vx();
+          break;
+
+        case 0x0055:
+          if (logging) {
+            printf(
+                "[FX55, MEM]: LD [I], Vx - Store from V0 to Vx with values "
+                "from memory @ I. \n");
+          }
+          this->store_registers_at_i();
+          break;
+
+        case 0x0065:
+          if (logging) {
+            printf(
+                "[FX65, MEM]: LD Vx, [I] - Fill from V0 to Vx with values from "
+                "memory @ I. \n");
+          }
+          this->load_registers_from_i();
+          break;
       }
 
     default:
@@ -594,6 +621,32 @@ void Chip8::add_i_to_vx() {
 void Chip8::set_i_to_sprite_character_in_vx() {
   const u8 Vx = this->get_x();
   this->index_register += this->general_purpose_variable_registers[Vx] * 5;
+}
+
+void Chip8::store_binary_coded_decimal_of_vx() {
+  const u8 Vx = this->get_x();
+  this->memory[this->index_register] =
+      this->general_purpose_variable_registers[Vx] / 100;
+  this->memory[this->index_register + 1] =
+      (this->general_purpose_variable_registers[Vx] / 10) % 10;
+  this->memory[this->index_register + 2] =
+      this->general_purpose_variable_registers[Vx] % 10;
+}
+
+void Chip8::store_registers_at_i() {
+  const u8 Vx = this->get_x();
+  for (u8 i = 0; i <= Vx; ++i) {
+    this->memory[this->index_register + i] =
+        this->general_purpose_variable_registers[i];
+  }
+}
+
+void Chip8::load_registers_from_i() {
+  const u8 Vx = this->get_x();
+  for (u8 i = 0; i <= Vx; ++i) {
+    this->general_purpose_variable_registers[i] =
+        this->memory[this->index_register + i];
+  }
 }
 
 u8 Chip8::get_x() { return (this->current_opcode & 0x0F00) >> 8; }

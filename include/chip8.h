@@ -150,6 +150,16 @@ class Chip8 {
   // [Fx29, MEM]: LD F, Vx - Set I to the location of the sprite character in Vx
   void set_i_to_sprite_character_in_vx();
 
+  // [FX33, BCD]: LD B, Vx - Store binary-coded decimal representation of Vx in
+  // memory locations I, I+1, and I+2
+  void store_binary_coded_decimal_of_vx();
+
+  // [FX55, MEM]: LD [I], Vx - Store from V0 to Vx with values from memory @ I
+  void store_registers_at_i();
+
+  // [FX65, MEM]: LD Vx, [I] - Fill from V0 to Vx with values from memory @ I
+  void load_registers_from_i();
+
   // Helpers
   u8 get_x();
   u8 get_y();
