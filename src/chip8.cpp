@@ -192,6 +192,13 @@ void Chip8::execute_instructions(bool logging) {
           this->subtract_vy_from_vx();
           break;
 
+        case 0x0006:
+          if (logging) {
+            printf("[8xy6, BitOp]: SHR Vx {, Vy} - Set Vx = Vx SHR 1. \n");
+          }
+          this->shift_vx_by_one_to_right();
+          break;
+
         default:
           printf("[ERROR]: Unrecognized opcode 0x%X. \n", this->current_opcode);
           exit(EXIT_FAILURE);
@@ -358,6 +365,17 @@ void Chip8::subtract_vy_from_vx() {
 
   this->general_purpose_variable_registers[Vx] -=
       this->general_purpose_variable_registers[Vy];
+}
+
+void Chip8::shift_vx_by_one_to_right() {
+  const u8 Vx = get_x();
+
+  // get the least-significant bit of Vx
+  this->general_purpose_variable_registers[0xF] =
+      (this->general_purpose_variable_registers[Vx] & 0x1u);
+
+  // shift Vx one to the right
+  this->general_purpose_variable_registers[Vx] >>= 1;
 }
 
 void Chip8::set_index_register() {
