@@ -284,9 +284,20 @@ void Chip8::execute_instructions(bool logging) {
 
     case 0xF000:
       switch (this->current_opcode & 0x00FF) {
+        case 0x0007:
+          if (logging) {
+            printf(
+                "[Fx07, Timer]: LD Vx, DT - Set Vx to the value of the delay "
+                "timer. \n");
+          }
+          this->set_vx_to_delay_timer();
+          break;
+
         case 0x000A:
           if (logging) {
-            printf("Instruction Fx0A - LD Vx, K.\n");
+            printf(
+                "[Fx0A, KeyOp]: LD Vx, K - Wait for a key press, store the key "
+                "value in Vx. \n");
           }
           this->wait_for_key_pressed();
           break;
@@ -513,6 +524,11 @@ void Chip8::skip_instruction_if_key_is_not_pressed() {
   if (!this->keypad.is_pressed(this->general_purpose_variable_registers[Vx])) {
     this->program_counter += 2;
   }
+}
+
+void Chip8::set_vx_to_delay_timer() {
+  const u8 Vx = this->get_x();
+  this->general_purpose_variable_registers[Vx] = this->delay_timer;
 }
 
 void Chip8::wait_for_key_pressed() {

@@ -131,7 +131,11 @@ class Chip8 {
   // pressed
   void skip_instruction_if_key_is_not_pressed();
 
-  // Fx0A - LD Vx, K
+  // [Fx07, Timer]: LD Vx, DT - Set Vx to the value of the delay timer
+  void set_vx_to_delay_timer();
+
+  // [Fx0A, KeyOp]: LD Vx, K - Wait for a key press, store the key value in Vx
+  // All execution stops until a key is pressed!
   void wait_for_key_pressed();
 
   // Helpers
