@@ -558,7 +558,7 @@ void Chip8::generate_random_number() {
 void Chip8::draw_sprite() {
   const u16 Vx = this->general_purpose_variable_registers[this->get_x()];
   const u16 Vy = this->general_purpose_variable_registers[this->get_y()];
-  const u16 height = this->current_opcode & 0x000Fu;
+  const u16 height = this->current_opcode & 0x000F;
   u16 pixel;
 
   this->general_purpose_variable_registers[0xF] = 0;
@@ -566,7 +566,7 @@ void Chip8::draw_sprite() {
   for (size_t y = 0; y < height; y++) {
     pixel = this->memory[this->index_register + y];
     for (size_t x = 0; x < 8; x++) {
-      if (pixel & (0x80 >> x)) {
+      if (pixel & (0x80u >> x)) {
         u32 loc = x + Vx + (y + Vy) * this->display->get_width();
         if (this->display->operator[](loc)) {
           this->general_purpose_variable_registers[0xF] = 1;
@@ -628,7 +628,7 @@ void Chip8::add_i_to_vx() {
 
 void Chip8::set_i_to_sprite_character_in_vx() {
   const u8 Vx = this->get_x();
-  this->index_register += this->general_purpose_variable_registers[Vx] * 5;
+  this->index_register = this->general_purpose_variable_registers[Vx] * 5;
 }
 
 void Chip8::store_binary_coded_decimal_of_vx() {
