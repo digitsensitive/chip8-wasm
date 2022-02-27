@@ -138,6 +138,18 @@ class Chip8 {
   // All execution stops until a key is pressed!
   void wait_for_key_pressed();
 
+  // [Fx15, Timer]: LD DT, Vx - Set the delay timer to Vx
+  void set_delay_timer_to_vx();
+
+  // [Fx18, Sound]: LD ST, Vx - Set the sound timer to Vx
+  void set_sound_timer_to_vx();
+
+  // [Fx1E, MEM]: ADD I, Vx - Add Vx to I
+  void add_i_to_vx();
+
+  // [Fx29, MEM]: LD F, Vx - Set I to the location of the sprite character in Vx
+  void set_i_to_sprite_character_in_vx();
+
   // Helpers
   u8 get_x();
   u8 get_y();

@@ -301,6 +301,36 @@ void Chip8::execute_instructions(bool logging) {
           }
           this->wait_for_key_pressed();
           break;
+
+        case 0x0015:
+          if (logging) {
+            printf("[Fx15, Timer]: LD DT, Vx - Set the delay timer to Vx. \n");
+          }
+          this->set_delay_timer_to_vx();
+          break;
+
+        case 0x0018:
+          if (logging) {
+            printf("[Fx18, Sound]: LD ST, Vx - Set the sound timer to Vx. \n");
+          }
+          this->set_sound_timer_to_vx();
+          break;
+
+        case 0x001E:
+          if (logging) {
+            printf("[Fx1E, MEM]: ADD I, Vx - Add Vx to I. \n");
+          }
+          this->add_i_to_vx();
+          break;
+
+        case 0x0029:
+          if (logging) {
+            printf(
+                "[Fx29, MEM]: LD F, Vx - Set I to the location of the sprite "
+                "character in Vx. \n");
+          }
+          this->set_i_to_sprite_character_in_vx();
+          break;
       }
 
     default:
@@ -544,6 +574,26 @@ void Chip8::wait_for_key_pressed() {
   if (!key_pressed) {
     this->program_counter -= 2;
   }
+}
+
+void Chip8::set_delay_timer_to_vx() {
+  const u8 Vx = this->get_x();
+  this->delay_timer = this->general_purpose_variable_registers[Vx];
+}
+
+void Chip8::set_sound_timer_to_vx() {
+  const u8 Vx = this->get_x();
+  this->sound_timer = this->general_purpose_variable_registers[Vx];
+}
+
+void Chip8::add_i_to_vx() {
+  const u8 Vx = this->get_x();
+  this->index_register += this->general_purpose_variable_registers[Vx];
+}
+
+void Chip8::set_i_to_sprite_character_in_vx() {
+  const u8 Vx = this->get_x();
+  this->index_register += this->general_purpose_variable_registers[Vx] * 5;
 }
 
 u8 Chip8::get_x() { return (this->current_opcode & 0x0F00) >> 8; }
