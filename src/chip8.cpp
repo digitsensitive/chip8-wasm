@@ -279,6 +279,10 @@ void Chip8::execute_instructions(bool logging) {
           }
           this->skip_instruction_if_key_is_not_pressed();
           break;
+
+        default:
+          printf("[ERROR]: Unrecognized opcode 0x%X. \n", this->current_opcode);
+          exit(EXIT_FAILURE);
       }
       break;
 
@@ -358,10 +362,14 @@ void Chip8::execute_instructions(bool logging) {
           }
           this->load_registers_from_i();
           break;
+
+        default:
+          printf("[ERROR]: Unrecognized opcode 0x%X. \n", this->current_opcode);
+          exit(EXIT_FAILURE);
       }
 
     default:
-      printf("ERROR: Unrecognized opcode: 0x%X\n", this->current_opcode);
+      printf("[ERROR]: Unrecognized opcode 0x%X. \n", this->current_opcode);
       exit(EXIT_FAILURE);
   }
 }
