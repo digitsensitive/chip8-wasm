@@ -6,6 +6,7 @@
 #include "chip8_types.h"
 #include "display.h"
 #include "keypad.h"
+#include "random.h"
 
 class Chip8 {
  public:
@@ -36,6 +37,7 @@ class Chip8 {
 
   Display* display;
   Keypad keypad;
+  Random rand;
 
   /*
     Standard Chip-8 Instructions:
@@ -112,6 +114,10 @@ class Chip8 {
 
   // [Bnnn, Flow]: JP V0, addr - Jump to the location nnn plus V0
   void jump_to_extended_v0_location();
+
+  // [Cxnn, Rand]: RND Vx, byte - Set Vx to the result of a bitwise AND
+  // operation on a random number
+  void generate_random_number();
 
   // Dxyn - DRW Vx, Vy, nibble
   void draw_sprite();

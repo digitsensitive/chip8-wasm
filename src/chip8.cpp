@@ -242,6 +242,15 @@ void Chip8::execute_instructions(bool logging) {
       this->jump_to_extended_v0_location();
       break;
 
+    case 0xC000:
+      if (logging) {
+        printf(
+            "[Cxnn, Rand]: RND Vx, byte - Set Vx to the result of a bitwise "
+            "AND operation on a random number. \n");
+      }
+      this->generate_random_number();
+      break;
+
     case 0xD000:
       if (logging) {
         printf("Instruction Dxyn - DRW Vx, Vy, nibble.\n");
@@ -455,6 +464,13 @@ void Chip8::set_index_register() {
 void Chip8::jump_to_extended_v0_location() {
   const u16 address = this->current_opcode & 0x0FFFu;
   this->program_counter = this->general_purpose_variable_registers[0] + address;
+}
+
+void Chip8::generate_random_number() {
+  const u8 Vx = this->get_x();
+  const u8 byte = this->current_opcode & 0x00FFu;
+  this->general_purpose_variable_registers[Vx] =
+      this->rand.get_random_number() & byte;
 }
 
 void Chip8::draw_sprite() {
