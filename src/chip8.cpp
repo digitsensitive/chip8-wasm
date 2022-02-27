@@ -253,7 +253,9 @@ void Chip8::execute_instructions(bool logging) {
 
     case 0xD000:
       if (logging) {
-        printf("Instruction Dxyn - DRW Vx, Vy, nibble.\n");
+        printf(
+            "[Dxyn, Display]: DRW Vx, Vy, nibble - Draw a sprite at coordinate "
+            "(Vx, Vy) .\n");
       }
       this->draw_sprite();
       break;
@@ -262,14 +264,18 @@ void Chip8::execute_instructions(bool logging) {
       switch (this->current_opcode & 0x00FF) {
         case 0x009E:
           if (logging) {
-            printf("Instruction Ex9E - SKP Vx.\n");
+            printf(
+                "[Ex9E, KeyOp]: SKP Vx - Skip next instruction if key "
+                "with value Vx is pressed. \n");
           }
           this->skip_instruction_if_key_pressed();
           break;
 
         case 0x00A1:
           if (logging) {
-            printf("Instruction ExA1 - SKNP Vx.\n");
+            printf(
+                "[ExA1, KeyOp]: SKNP Vx - Skip next instruction if key with "
+                "value Vx is not pressed. \n");
           }
           this->skip_instruction_if_key_is_not_pressed();
           break;

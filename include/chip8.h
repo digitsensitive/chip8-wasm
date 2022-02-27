@@ -119,13 +119,16 @@ class Chip8 {
   // operation on a random number
   void generate_random_number();
 
-  // Dxyn - DRW Vx, Vy, nibble
+  // [Dxyn, Display]: DRW Vx, Vy, nibble - Draw a sprite at coordinate (Vx, Vy)
+  // Sprite has a width of 8 pixels and a height of n pixels
   void draw_sprite();
 
-  // Ex9E - SKP Vx
+  // [Ex9E, KeyOp]: SKP Vx - Skip next instruction if key with value Vx is
+  // pressed
   void skip_instruction_if_key_pressed();
 
-  // ExA1 - SKNP Vx
+  // [ExA1, KeyOp]: SKNP Vx - Skip next instruction if key with value Vx is not
+  // pressed
   void skip_instruction_if_key_is_not_pressed();
 
   // Fx0A - LD Vx, K
