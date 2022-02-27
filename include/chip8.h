@@ -83,6 +83,17 @@ class Chip8 {
   // [8xy2, BitOp]: AND Vx, Vy - Set Vx to Vx and Vy (Bitwise AND operation)
   void set_vx_to_bitwise_and_of_vx_and_vy();
 
+  // [8xy3, BitOp]: XOR Vx, Vy - Set Vx to Vx xor Vy (Bitwise XOR operation)
+  void set_vx_to_bitwise_xor_of_vx_and_vy();
+
+  // [8xy4, Math]: ADD Vx, Vy - Add Vy to Vx
+  // If Vx is larger than 255 we have a overflow and Vf is set to 1
+  void add_vy_to_vx();
+
+  // [8xy5, Math]: SUB Vx, Vy - Subtract Vy from Vx
+  // If Vx is larger than Vy, then Vf is set to 1, otherwise 0
+  void subtract_vy_from_vx();
+
   // Annn - LD I, addr Set I = nnn.
   void set_index_register();
 

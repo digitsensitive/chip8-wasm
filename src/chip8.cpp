@@ -169,6 +169,29 @@ void Chip8::execute_instructions(bool logging) {
           this->set_vx_to_bitwise_and_of_vx_and_vy();
           break;
 
+        case 0x0003:
+          if (logging) {
+            printf(
+                "[8xy3, BitOp]: XOR Vx, Vy - Set Vx to Vx xor Vy (Bitwise XOR "
+                "operation). \n");
+          }
+          this->set_vx_to_bitwise_xor_of_vx_and_vy();
+          break;
+
+        case 0x0004:
+          if (logging) {
+            printf("[8xy4, Math]: ADD Vx, Vy - Add Vy to Vx. \n");
+          }
+          this->add_vy_to_vx();
+          break;
+
+        case 0x0005:
+          if (logging) {
+            printf("[8xy5, Math]: SUB Vx, Vy - Subtract Vy from Vx. \n");
+          }
+          this->subtract_vy_from_vx();
+          break;
+
         default:
           printf("[ERROR]: Unrecognized opcode 0x%X. \n", this->current_opcode);
           exit(EXIT_FAILURE);
@@ -307,6 +330,33 @@ void Chip8::set_vx_to_bitwise_and_of_vx_and_vy() {
   const u8 Vx = this->get_x();
   const u8 Vy = this->get_y();
   this->general_purpose_variable_registers[Vx] &=
+      this->general_purpose_variable_registers[Vy];
+}
+
+void Chip8::set_vx_to_bitwise_xor_of_vx_and_vy() {
+  const u8 Vx = this->get_x();
+  const u8 Vy = this->get_y();
+  this->general_purpose_variable_registers[Vx] ^=
+      this->general_purpose_variable_registers[Vy];
+}
+
+void Chip8::add_vy_to_vx() {
+  const u8 Vx = this->get_x();
+  const u8 Vy = this->get_y();
+  const u16 sum = this->general_purpose_variable_registers[Vy] +
+                  this->general_purpose_variable_registers[Vx];
+
+  this->general_purpose_variable_registers[0xF] = (sum > 255) ? 1 : 0;
+  this->general_purpose_variable_registers[Vx] = sum & 0xFF;
+}
+
+void Chip8::subtract_vy_from_vx() {
+  const u8 Vx = this->get_x();
+  const u8 Vy = this->get_y();
+
+  this->general_purpose_variable_registers[0xF] = (Vx > Vy) ? 1 : 0;
+
+  this->general_purpose_variable_registers[Vx] -=
       this->general_purpose_variable_registers[Vy];
 }
 
