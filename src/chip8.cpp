@@ -48,7 +48,7 @@ void Chip8::reset() {
   this->general_purpose_variable_registers.fill(0);
   this->stack.fill(0);
   this->index_register = 0;
-  this->program_counter = 0x200;
+  this->program_counter = START_LOCATION_IN_MEMORY;
   this->stack_pointer = 0;
   this->delay_timer = 0;
   this->sound_timer = 0;
