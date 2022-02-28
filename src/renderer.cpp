@@ -21,11 +21,7 @@ bool Renderer::is_current_display_mode_valid() {
   // Returns 0 on success or a negative error code on failure
   int currentDisplayModeReturnValue = SDL_GetCurrentDisplayMode(0, &current);
 
-  if (currentDisplayModeReturnValue != 0) {
-    return false;
-  } else {
-    return true;
-  }
+  return currentDisplayModeReturnValue != 0 ? false : true;
 }
 
 bool Renderer::initialize() {

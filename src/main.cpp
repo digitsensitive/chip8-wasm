@@ -7,10 +7,6 @@
 
 VirtualMachine virtual_machine;
 
-void do_error(const std::string& kErrorMessage) {
-  std::cerr << "ERROR: " << kErrorMessage << '\n';
-}
-
 void main_loop() { virtual_machine.run(); }
 
 extern "C" {
@@ -19,17 +15,16 @@ void load_game(char* data) { virtual_machine.flash_rom(data); }
 void change_game_color(u8 red, u8 green, u8 blue) {
   virtual_machine.change_game_color(red, green, blue);
 }
-// TODO: void disassemble(char* data) {
-// virtual_machine.disassemble_program(data); }
 }
 
-int main() {
+int main(int argc, char* argv[]) {
   if (virtual_machine.boot()) {
-    emscripten_set_main_loop(main_loop, /* fps */ -1, /* infinite loop */ true);
+    // https://emscripten.org/docs/api_reference/emscripten.h.html#c.emscripten_set_main_loop
+    emscripten_set_main_loop(main_loop, -1, true);
   } else {
-    do_error("Failed to boot emulator");
-    return EXIT_FAILURE;
+    std::cerr << "Failed to boot the Chip-8 Virtual Machine. " << '\n';
+    return 1;
   }
 
-  return EXIT_SUCCESS;
+  return 0;
 }
