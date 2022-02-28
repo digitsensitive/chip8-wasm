@@ -5,9 +5,9 @@
 
 Renderer::Renderer(WindowProperties const &properties)
     : window_properties(properties),
-      red(0xEF),
-      green(0xB3),
-      blue(0xEE),
+      red(0xD2),
+      green(0xA2),
+      blue(0x4C),
       window(nullptr),
       renderer(nullptr) {}
 

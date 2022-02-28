@@ -1,11 +1,33 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
   <head>
     <meta charset="utf-8" />
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>
+      CHIP-8 interpreter (and virtual machine) written in C++11 with SDL2 and
+      WebAssembly
+    </title>
+    <meta name="author" content="digitsensitive" />
+    <link
+      rel="apple-touch-icon"
+      sizes="180x180"
+      href="./images/apple-touch-icon.png"
+    />
+    <link
+      rel="icon"
+      type="image/x-icon"
+      sizes="32x32"
+      href="./images/favicon-32x32.png"
+    />
+    <link
+      rel="icon"
+      type="image/x-icon"
+      sizes="16x16"
+      href="./images/favicon-16x16.png"
+    />
+    <link rel="stylesheet" href="./styles/css/styles.css" />
   </head>
   <body>
-    <div id="shell">
+    <div class="chip8-canvas">
       <canvas id="canvas" oncontextmenu="event.preventDefault()"></canvas>
     </div>
     <div id="selection">
@@ -17,11 +39,12 @@
         <option value="BRIX.ch8">BRIX</option>
         <option value="TETRIS.ch8">TETRIS</option>
         <option value="INVADERS.ch8">INVADERS</option>
+        <option value="UFO.ch8">UFO</option>
       </select>
     </div>
     <div>
       <label for="colorpicker">Select Game Color:</label>
-      <input type="color" id="colorpicker" value="#EFB3EE" />
+      <input type="color" id="colorpicker" value="#d2a24c" />
     </div>
     <script type="text/javascript">
       var Module = {

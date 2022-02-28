@@ -14,7 +14,7 @@ VirtualMachine::VirtualMachine() {
   const int DISPLAY_HEIGHT = display.get_height() * display.get_scale();
 
   this->renderer =
-      new Renderer({"CHIP-8 GREAT!", DISPLAY_WIDTH, DISPLAY_HEIGHT});
+      new Renderer({"CHIP-8 interpreter", DISPLAY_WIDTH, DISPLAY_HEIGHT});
 }
 
 VirtualMachine::~VirtualMachine() {
