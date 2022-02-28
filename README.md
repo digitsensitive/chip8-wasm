@@ -4,7 +4,7 @@ This project was created to deal with the creation of an interpreter in more det
 and to use [WebAssembly](https://webassembly.org) for the first time.
 
 I have documented and described the development of the project in detail on the
-following [article on Medium](https://medium.com/p/2e7c8749031d/edit).
+following [article on Medium](https://medium.com/@digit.sensitivee/how-i-created-my-first-interpreter-2e7c8749031d).
 
 Have fun reading through and coding!
 
