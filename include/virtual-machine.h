@@ -17,7 +17,7 @@ class VirtualMachine {
 
   bool boot();
   bool load_rom(const std::string& kFile);
-  void flash_rom(char* data);
+  void flash_program(char* data);
   void disassemble_program(char* data);
   void run();
   void poll_events();

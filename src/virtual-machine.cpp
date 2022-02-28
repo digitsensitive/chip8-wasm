@@ -41,12 +41,12 @@ bool VirtualMachine::load_rom(const std::string& kFile) {
                 std::istreambuf_iterator<char>());
 
   ToggleState(kRomLoading);  // Turn off rom loading state
-  flash_rom(buffer.data());
+  flash_program(buffer.data());
 
   return true;
 }
 
-void VirtualMachine::flash_rom(char* data) {
+void VirtualMachine::flash_program(char* data) {
   if (CheckState(kRomLoaded)) {
     // Rom is already loaded, reset state
     ToggleState(kRomLoaded);

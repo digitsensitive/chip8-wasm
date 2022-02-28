@@ -17,6 +17,14 @@ Have fun reading through and coding!
 - Get the [Emscripten SDK](https://emscripten.org/docs/getting_started/downloads.html)
 - In the root directory set the CMAKE Toolchain file by running: `CMAKE_TOOLCHAIN_FILE=/**/Emscripten.cmake` Ensure you update your path with the location of your emsdk installation location
 
+# Installation
+
+- Download the submodules with `git submodule update --init`
+- Create the build folder with `mkdir build`
+- Navigate to the build folder with `cd build`
+- Run `emcmake cmake ..` and `make`
+- Start the localhost in the root folder with `yarn http`
+
 # Code formatter
 
 Use of [ClangFormat](https://clang.llvm.org/docs/ClangFormat.html). The style options are defined in the `.clang-format` file. For more details have a look at the official [Style Options](https://clang.llvm.org/docs/ClangFormatStyleOptions.html).

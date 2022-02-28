@@ -11,7 +11,7 @@ void main_loop() { virtual_machine.run(); }
 
 extern "C" {
 // Wrap in extern C to prevent C++ name mangling
-void load_game(char* data) { virtual_machine.flash_rom(data); }
+void load_game(char* data) { virtual_machine.flash_program(data); }
 void change_game_color(u8 red, u8 green, u8 blue) {
   virtual_machine.change_game_color(red, green, blue);
 }
