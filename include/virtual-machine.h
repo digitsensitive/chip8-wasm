@@ -27,11 +27,11 @@ class VirtualMachine {
   }
 
  private:
-  uint8_t emu_state_{0};
+  u8 emu_state_{0};
 
-  inline void ToggleState(uint8_t state) { emu_state_ ^= state; }
+  inline void ToggleState(u8 state) { emu_state_ ^= state; }
 
-  inline bool CheckState(uint8_t state) { return emu_state_ & state; }
+  inline bool CheckState(u8 state) { return emu_state_ & state; }
 
   Renderer* renderer;
   Chip8 chip8;
