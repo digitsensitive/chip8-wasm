@@ -1,4 +1,4 @@
-# A CHIP-8 virtual machine written in C++ with WebAssembly
+# A CHIP-8 interpreter (and virtual machine) written in C++ with SDL2 and WebAssembly
 
 This project was created to deal with the creation of an interpreter in more detail
 and to use [WebAssembly](https://webassembly.org) for the first time.
@@ -32,21 +32,19 @@ For more details about the arguments look at the official
 
 - [x] Setup basic repository (C++, WebAssembly)
 - [x] Setup basic VSCode configuration (C++, Clang)
-- [x] Medium: Create history section
+- [x] Medium: Write history section
 - [x] CHIP-8: Add memory
 - [x] CHIP-8: Add registers
 - [x] CHIP-8: Add stack
-- [x] Medium: Add references section
+- [x] Medium: Write references section
 - [x] CHIP-8: Add delay and sound registers
 - [x] CHIP-8: Add program counter (PC)
 - [x] CHIP-8: Add input (keypad)
 - [x] CHIP-8: Add display
 - [x] CHIP-8: Add fontset
-- [x] Add roms
+- [x] CHIP-8: Add instructions
+- [x] Public Folder: Add roms
 - [x] Medium: Write instructions section
-- [] CHIP-8: Add code to load program into memory
-- [] CHIP-8: Add code to emulate each cycle
-- [] Add Prettier to package.json with prettier configurationa file
+- [x] Add Prettier to package.json with prettier configuration file
 - [] Write disassembler (https://aimechanics.tech/2020/09/03/chip8-emulation-rom-disassembler)
-
-- Read the following ressource: http://vanbeveren.byethost13.com/stuff/CHIP8.pdf?i=1
+- [] Read the following ressource: http://vanbeveren.byethost13.com/stuff/CHIP8.pdf?i=1
