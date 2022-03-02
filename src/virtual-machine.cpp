@@ -1,6 +1,8 @@
 #include "virtual-machine.h"
 
+/* TODO: Add WASM Support
 #include <emscripten.h>
+*/
 
 #include <fstream>
 #include <iostream>
@@ -24,10 +26,10 @@ VirtualMachine::~VirtualMachine() {
 
 bool VirtualMachine::boot() { return renderer->initialize(); }
 
-bool VirtualMachine::load_rom(const std::string& kFile) {
+bool VirtualMachine::load_program(const std::string& program_file) {
   ToggleState(kRomLoading);  // Turn on rom loading state
 
-  std::ifstream rom(kFile);
+  std::ifstream rom(program_file);
   if (!rom) return false;
 
   rom.seekg(0, std::ios::end);
@@ -64,7 +66,7 @@ void VirtualMachine::disassemble_program(char* data) {
 void VirtualMachine::run() {
   if (CheckState(kRomLoaded) && !CheckState(kRomLoading)) {
     this->chip8.update_timers();
-    this->poll_events();
+    this->process_input();
     for (int i = 0; i < kCyclePerSecond; ++i) {
       this->chip8.execute_instructions(true);
     }
@@ -72,7 +74,7 @@ void VirtualMachine::run() {
   }
 }
 
-void VirtualMachine::poll_events() {
+void VirtualMachine::process_input() {
   SDL_Event event;
   while (SDL_PollEvent(&event) != 0) {
     const u8 key = event.key.keysym.sym;
@@ -87,4 +89,8 @@ void VirtualMachine::poll_events() {
         break;
     }
   }
+}
+
+void VirtualMachine::shutdown_systems() {
+  // shutdown here
 }

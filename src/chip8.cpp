@@ -67,15 +67,15 @@ void Chip8::execute_instructions(bool logging) {
   // Decode and execute the current operation code
   switch (this->current_opcode & 0xF000) {
     case 0x0000:
-      switch (this->current_opcode) {
-        case 0x00E0:
+      switch (this->current_opcode & 0x000F) {
+        case 0x0000:
           if (logging) {
             printf("[00E0, Display]: CLS - Clear display. \n");
           }
           this->clear_screen();
           break;
 
-        case 0x00EE:
+        case 0x000E:
           if (logging) {
             printf("[00EE, Flow]: RET - Return from a subroutine. \n");
           }
@@ -84,7 +84,6 @@ void Chip8::execute_instructions(bool logging) {
 
         default:
           printf("[ERROR]: Unrecognized opcode 0x%X. \n", this->current_opcode);
-          exit(EXIT_FAILURE);
       }
       break;
 
@@ -215,7 +214,6 @@ void Chip8::execute_instructions(bool logging) {
 
         default:
           printf("[ERROR]: Unrecognized opcode 0x%X. \n", this->current_opcode);
-          exit(EXIT_FAILURE);
       }
       break;
 
@@ -282,7 +280,6 @@ void Chip8::execute_instructions(bool logging) {
 
         default:
           printf("[ERROR]: Unrecognized opcode 0x%X. \n", this->current_opcode);
-          exit(EXIT_FAILURE);
       }
       break;
 
@@ -365,12 +362,10 @@ void Chip8::execute_instructions(bool logging) {
 
         default:
           printf("[ERROR]: Unrecognized opcode 0x%X. \n", this->current_opcode);
-          exit(EXIT_FAILURE);
       }
 
     default:
       printf("[ERROR]: Unrecognized opcode 0x%X. \n", this->current_opcode);
-      exit(EXIT_FAILURE);
   }
 }
 
@@ -638,7 +633,7 @@ void Chip8::store_binary_coded_decimal_of_vx() {
   this->memory[this->index_register + 1] =
       (this->general_purpose_variable_registers[Vx] / 10) % 10;
   this->memory[this->index_register + 2] =
-      this->general_purpose_variable_registers[Vx] % 10;
+      (this->general_purpose_variable_registers[Vx] % 100) % 10;
 }
 
 void Chip8::store_registers_at_i() {

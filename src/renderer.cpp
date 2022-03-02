@@ -26,7 +26,7 @@ bool Renderer::is_current_display_mode_valid() {
 
 bool Renderer::initialize() {
   // Returns zero on success or a negative error code on failure
-  if (SDL_Init(SDL_INIT_VIDEO) < 0) {
+  if (SDL_Init(SDL_INIT_EVERYTHING) < 0) {
     printf("SDL_Init failed: %s\n", SDL_GetError());
     return false;
   }
@@ -39,7 +39,7 @@ bool Renderer::initialize() {
   // Create our window with title, position, size and flags
   this->window = SDL_CreateWindow(
       window_properties.title, SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED,
-      window_properties.width, window_properties.height, SDL_WINDOW_BORDERLESS);
+      window_properties.width, window_properties.height, SDL_WINDOW_SHOWN);
 
   // Check if we have a window
   if (this->window == nullptr) {

@@ -16,11 +16,12 @@ class VirtualMachine {
   ~VirtualMachine();
 
   bool boot();
-  bool load_rom(const std::string& kFile);
+  bool load_program(const std::string& program_file);
   void flash_program(char* data);
   void disassemble_program(char* data);
   void run();
-  void poll_events();
+  void process_input();
+  void shutdown_systems();
 
   void change_game_color(u8 red, u8 green, u8 blue) {
     this->renderer->set_color(red, green, blue);
