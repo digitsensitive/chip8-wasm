@@ -8,9 +8,7 @@
 #include <iostream>
 #include <vector>
 
-const auto kCyclePerSecond = 10;  // Arbitrary, works best for most roms
-
-VirtualMachine::VirtualMachine() {
+VirtualMachine::VirtualMachine() : is_running(false) {
   Display display = this->chip8.get_display();
   const int DISPLAY_WIDTH = display.get_width() * display.get_scale();
   const int DISPLAY_HEIGHT = display.get_height() * display.get_scale();
@@ -64,13 +62,25 @@ void VirtualMachine::disassemble_program(char* data) {
 }
 
 void VirtualMachine::run() {
-  if (CheckState(kRomLoaded) && !CheckState(kRomLoading)) {
+  this->is_running = true;
+
+  while (this->is_running && (kRomLoaded) && !CheckState(kRomLoading)) {
+    this->frame_start = SDL_GetTicks();
+
+    this->chip8.execute_instructions(true);
     this->chip8.update_timers();
-    this->process_input();
-    for (int i = 0; i < kCyclePerSecond; ++i) {
-      this->chip8.execute_instructions(true);
+    if (this->chip8.get_draw_flag()) {
+      renderer->draw(this->chip8.get_display());
     }
-    renderer->draw(this->chip8.get_display());
+
+    this->process_input();
+    this->chip8.set_draw_flag(false);
+
+    this->frame_time = SDL_GetTicks() - this->frame_start;
+
+    if (this->frame_delay > this->frame_time) {
+      SDL_Delay(this->frame_delay - this->frame_time);
+    }
   }
 }
 
@@ -80,6 +90,7 @@ void VirtualMachine::process_input() {
     const u8 key = event.key.keysym.sym;
     switch (event.type) {
       case SDL_QUIT:
+        this->is_running = false;
         break;
       case SDL_KEYDOWN:
         this->chip8.set_key(key, true);

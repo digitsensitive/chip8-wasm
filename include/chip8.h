@@ -20,10 +20,13 @@ class Chip8 {
 
  public:
   void set_key(u8 key, bool state) { this->keypad.set_key(key, state); }
-
+  bool get_draw_flag() { return this->draw_flag; }
+  void set_draw_flag(bool draw_flag) { this->draw_flag = draw_flag; }
   Display& get_display() { return *this->display; }
 
  private:
+  bool draw_flag;
+
   u16 current_opcode;
   u8 delay_timer;
   u16 index_register;

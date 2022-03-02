@@ -28,11 +28,16 @@ class VirtualMachine {
   }
 
  private:
+  bool is_running;
   u8 emu_state_{0};
-
   inline void ToggleState(u8 state) { emu_state_ ^= state; }
-
   inline bool CheckState(u8 state) { return emu_state_ & state; }
+
+  // Frame Rate
+  const int FPS = 400;
+  const int frame_delay = 1000 / FPS;
+  Uint32 frame_start;
+  int frame_time;
 
   Renderer* renderer;
   Chip8 chip8;

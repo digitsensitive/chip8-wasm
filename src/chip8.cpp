@@ -8,6 +8,7 @@
 const int START_LOCATION_IN_MEMORY = 0x200;
 
 Chip8::Chip8() {
+  this->draw_flag = true;
   this->display = new Display();
 
   this->current_opcode = 0;
@@ -381,7 +382,10 @@ void Chip8::update_timers() {
   }
 }
 
-void Chip8::clear_screen() { this->display->clear_screen(); }
+void Chip8::clear_screen() {
+  this->display->clear_screen();
+  this->draw_flag = true;
+}
 
 void Chip8::return_from_subroutine() {
   this->program_counter = this->stack[--this->stack_pointer];
@@ -570,6 +574,7 @@ void Chip8::draw_sprite() {
       }
     }
   }
+  this->draw_flag = true;
 }
 
 void Chip8::skip_instruction_if_key_pressed() {
