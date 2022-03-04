@@ -13,7 +13,6 @@
     "build": "make",
     "http": "http-server -o"
   },
-  "dependencies": {},
   "devDependencies": {
     "http-server": "14.1.0",
     "prettier": "2.5.1"
