@@ -1,4 +1,4 @@
-# A CHIP-8 interpreter (and virtual machine) written in C++ with SDL2 and WebAssembly
+# A CHIP-8 interpreter (and virtual machine) written in C++17 with SDL2 and WebAssembly
 
 This project was created to deal with the creation of an interpreter in more detail
 and to use [WebAssembly](https://webassembly.org) for the first time.
