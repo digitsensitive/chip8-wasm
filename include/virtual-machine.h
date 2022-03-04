@@ -34,7 +34,7 @@ class VirtualMachine {
   inline bool CheckState(u8 state) { return emu_state_ & state; }
 
   // Frame Rate
-  const int FPS = 400;
+  const int FPS = 500;
   const int frame_delay = 1000 / FPS;
   Uint32 frame_start;
   int frame_time;

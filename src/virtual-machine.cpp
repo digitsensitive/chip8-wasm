@@ -67,14 +67,13 @@ void VirtualMachine::run() {
   while (this->is_running && (kRomLoaded) && !CheckState(kRomLoading)) {
     this->frame_start = SDL_GetTicks();
 
-    this->chip8.execute_instructions(true);
-    this->chip8.update_timers();
+    this->chip8.cycle();
     if (this->chip8.get_draw_flag()) {
       renderer->draw(this->chip8.get_display());
+      this->chip8.deactivate_draw_flag();
     }
 
     this->process_input();
-    this->chip8.set_draw_flag(false);
 
     this->frame_time = SDL_GetTicks() - this->frame_start;
 

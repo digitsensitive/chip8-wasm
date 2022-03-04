@@ -2,7 +2,7 @@
 cmake_minimum_required(VERSION 3.18.1)
 
 # Define the C++ standard whose features we request to build this project
-set(CMAKE_CXX_STANDARD 11)
+set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 # Set the project version
@@ -24,6 +24,7 @@ add_executable(${PROJECT_NAME}
   src/virtual-machine.cpp
   src/renderer.cpp
   src/disassembler.cpp
+  src/interpreter.cpp
   src/random.cpp)
 
 # Add the include directories (= our header files) to our target
