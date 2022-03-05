@@ -4,12 +4,7 @@
 #include "display.h"
 
 Renderer::Renderer(WindowProperties const &properties)
-    : window_properties(properties),
-      red(0xD2),
-      green(0xA2),
-      blue(0x4C),
-      window(nullptr),
-      renderer(nullptr) {}
+    : window_properties(properties), window(nullptr), renderer(nullptr) {}
 
 Renderer::~Renderer() {
   SDL_DestroyWindow(window);
@@ -56,8 +51,8 @@ bool Renderer::initialize() {
 
 void Renderer::draw(Display &display) {
   // Clear the screen
-  SDL_SetRenderDrawColor(renderer, 0, 0, 0, 0xff);
-  SDL_RenderClear(renderer);
+  SDL_SetRenderDrawColor(this->renderer, 0, 0, 0, 0xff);
+  SDL_RenderClear(this->renderer);
 
   // Loop through the display and draw pixels
   for (int y = 0; y < display.get_height(); y++) {
@@ -68,13 +63,30 @@ void Renderer::draw(Display &display) {
     }
   }
 
-  SDL_RenderPresent(renderer);
+  // Draw Grid
+  SDL_SetRenderDrawColor(this->renderer, this->grid_line_color.r,
+                         this->grid_line_color.g, this->grid_line_color.b,
+                         this->grid_line_color.a);
+
+  for (int x = 0; x < 1 + display.get_width() * display.get_scale();
+       x += display.get_scale()) {
+    SDL_RenderDrawLine(this->renderer, x, 0, x, window_properties.height);
+  }
+
+  for (int y = 0; y < 1 + display.get_height() * display.get_scale();
+       y += display.get_scale()) {
+    SDL_RenderDrawLine(this->renderer, 0, y, window_properties.width, y);
+  }
+
+  SDL_RenderPresent(this->renderer);
 }
 
 void Renderer::draw_pixel(int x, int y, int scale) {
-  SDL_SetRenderDrawColor(renderer, this->red, this->green, this->blue, 0xFF);
+  SDL_SetRenderDrawColor(this->renderer, this->pixel_color.r,
+                         this->pixel_color.g, this->pixel_color.b,
+                         this->pixel_color.a);
 
   SDL_Rect rect{x * scale, y * scale, scale, scale};
-  SDL_RenderDrawRect(renderer, &rect);
-  SDL_RenderFillRect(renderer, &rect);
+  SDL_RenderDrawRect(this->renderer, &rect);
+  SDL_RenderFillRect(this->renderer, &rect);
 }

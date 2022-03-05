@@ -22,15 +22,14 @@ class Renderer {
   void draw(Display& display);
 
   void set_color(u8 red, u8 green, u8 blue) {
-    this->red = red;
-    this->green = green;
-    this->blue = blue;
+    this->pixel_color.r = red;
+    this->pixel_color.g = green;
+    this->pixel_color.b = blue;
   }
 
  private:
-  u8 red;
-  u8 green;
-  u8 blue;
+  SDL_Color pixel_color = {0xD2, 0xA2, 0x4C, 0xFF};
+  SDL_Color grid_line_color = {0x1C, 0x1C, 0x1C, 0xFF};
 
   SDL_Window* window;
   SDL_Renderer* renderer;
