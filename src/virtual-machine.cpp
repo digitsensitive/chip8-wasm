@@ -69,7 +69,7 @@ void VirtualMachine::run() {
 
     this->chip8.cycle();
     if (this->chip8.get_draw_flag()) {
-      renderer->draw(this->chip8.get_display());
+      this->renderer->draw(this->chip8.get_display());
       this->chip8.deactivate_draw_flag();
     }
 

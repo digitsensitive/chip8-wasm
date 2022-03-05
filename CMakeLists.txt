@@ -25,7 +25,8 @@ add_executable(${PROJECT_NAME}
   src/renderer.cpp
   src/disassembler.cpp
   src/interpreter.cpp
-  src/random.cpp)
+  src/random.cpp
+  src/sdl/text.cpp)
 
 # Add the include directories (= our header files) to our target
 target_include_directories(${PROJECT_NAME} PRIVATE 
