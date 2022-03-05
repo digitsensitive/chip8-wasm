@@ -1,5 +1,5 @@
 
-#include "renderer.h"
+#include "sdl/renderer.h"
 
 #include "chip8/display.h"
 

@@ -21,12 +21,12 @@ find_package(SDL2 REQUIRED)
 add_executable(${PROJECT_NAME}
   src/main.cpp
   src/virtual-machine.cpp
-  src/renderer.cpp
+  src/sdl/renderer.cpp
+  src/sdl/text.cpp
   src/chip8/chip8.cpp
   src/chip8/disassembler.cpp
   src/chip8/interpreter.cpp
-  src/chip8/random.cpp
-  src/sdl/text.cpp)
+  src/chip8/random.cpp)
 
 # Add the include directories (= our header files) to our target
 target_include_directories(${PROJECT_NAME} PRIVATE 

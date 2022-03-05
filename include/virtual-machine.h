@@ -6,7 +6,7 @@
 #include "chip8/chip8.h"
 #include "chip8/disassembler.h"
 #include "chip8/keypad.h"
-#include "renderer.h"
+#include "sdl/renderer.h"
 
 enum VirtualMachineState { kRomLoading = 1 << 0, kRomLoaded = 1 << 1 };
 
