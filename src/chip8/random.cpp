@@ -1,4 +1,4 @@
-#include "random.h"
+#include "chip8/random.h"
 
 Random::Random() {}
 

@@ -3,7 +3,7 @@
 
 #include <SDL.h>
 
-#include "display.h"
+#include "chip8/display.h"
 
 struct WindowProperties {
   const char* title;

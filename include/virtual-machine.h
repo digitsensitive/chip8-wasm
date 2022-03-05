@@ -3,9 +3,9 @@
 
 #include <string>
 
-#include "chip8.h"
-#include "disassembler.h"
-#include "keypad.h"
+#include "chip8/chip8.h"
+#include "chip8/disassembler.h"
+#include "chip8/keypad.h"
 #include "renderer.h"
 
 enum VirtualMachineState { kRomLoading = 1 << 0, kRomLoaded = 1 << 1 };

@@ -1,7 +1,7 @@
 
 #include "renderer.h"
 
-#include "display.h"
+#include "chip8/display.h"
 
 Renderer::Renderer(WindowProperties const &properties)
     : window_properties(properties), window(nullptr), renderer(nullptr) {}

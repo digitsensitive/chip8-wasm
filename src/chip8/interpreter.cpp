@@ -1,4 +1,4 @@
-#include "interpreter.h"
+#include "chip8/interpreter.h"
 
 u8 Interpreter::get_x() { return (chip8.current_opcode & 0x0F00u) >> 8; }
 u8 Interpreter::get_y() { return (chip8.current_opcode & 0x00F0u) >> 4; }

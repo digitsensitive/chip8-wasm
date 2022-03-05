@@ -1,4 +1,4 @@
-#include "disassembler.h"
+#include "chip8/disassembler.h"
 
 #include <fstream>
 #include <iostream>

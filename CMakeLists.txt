@@ -20,12 +20,12 @@ find_package(SDL2 REQUIRED)
 # Add main executable to our project
 add_executable(${PROJECT_NAME}
   src/main.cpp
-  src/chip8.cpp
   src/virtual-machine.cpp
   src/renderer.cpp
-  src/disassembler.cpp
-  src/interpreter.cpp
-  src/random.cpp
+  src/chip8/chip8.cpp
+  src/chip8/disassembler.cpp
+  src/chip8/interpreter.cpp
+  src/chip8/random.cpp
   src/sdl/text.cpp)
 
 # Add the include directories (= our header files) to our target

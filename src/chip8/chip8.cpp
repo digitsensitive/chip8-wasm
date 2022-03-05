@@ -1,10 +1,10 @@
-#include "chip8.h"
+#include "chip8/chip8.h"
 
 #include <cstring>
 #include <iostream>
 
-#include "fontset.h"
-#include "interpreter.h"
+#include "chip8/fontset.h"
+#include "chip8/interpreter.h"
 
 const int START_LOCATION_IN_MEMORY = 0x200;
 

@@ -3,8 +3,6 @@
 
 #include <SDL.h>
 
-#include "SDL_ttf.h"
-
 class Text {
  public:
   Text();
